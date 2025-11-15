@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "../functions.h"
 char white[3][3]={{'W','W','W'},{'W','W','W'},{'W','W','W'}};
 char red[3][3]={{'R','R','R'},{'R','R','R'},{'R','R','R'}};
 char blue[3][3]={{'B','B','B'},{'B','B','B'},{'B','B','B'}};
@@ -13,7 +14,6 @@ char blueCheck[3][3]={{'B','B','B'},{'B','B','B'},{'B','B','B'}};
 char yellowCheck[3][3]={{'Y','Y','Y'},{'Y','Y','Y'},{'Y','Y','Y'}};
 char orangeCheck[3][3]={{'O','O','O'},{'O','O','O'},{'O','O','O'}};
 char greenCheck[3][3]={{'G','G','G'},{'G','G','G'},{'G','G','G'}};
-typedef struct{int hours; int minutes; int seconds;} Time; Time t;
 void makeTime(int a);
 void scramble(void);
 int startTime;
@@ -304,13 +304,6 @@ void printCube(void){
         }
         printf("\n");
     }
-}
-void makeTime(int a){
-    t.seconds=a;
-    t.minutes=t.seconds/60;
-    t.seconds-=t.minutes*60;
-    t.hours=t.minutes/60;
-    t.minutes-=t.hours*60;
 }
 void scramble(void){
     int scrambleSize;
