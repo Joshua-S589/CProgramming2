@@ -9,10 +9,17 @@ char orange[3][3]={{'O','O','O'},{'O','O','O'},{'O','O','O'}};
 char green[3][3]={{'G','G','G'},{'G','G','G'},{'G','G','G'}};
 char whiteCheck[3][3]={{'W','W','W'},{'W','W','W'},{'W','W','W'}};
 char redCheck[3][3]={{'R','R','R'},{'R','R','R'},{'R','R','R'}};
-char blueCheck[3][3]={{'B','B','B'},{'B','X','B'},{'B','B','B'}};
+char blueCheck[3][3]={{'B','B','B'},{'B','B','B'},{'B','B','B'}};
 char yellowCheck[3][3]={{'Y','Y','Y'},{'Y','Y','Y'},{'Y','Y','Y'}};
 char orangeCheck[3][3]={{'O','O','O'},{'O','O','O'},{'O','O','O'}};
 char greenCheck[3][3]={{'G','G','G'},{'G','G','G'},{'G','G','G'}};
+typedef struct{int hours; int minutes; int seconds;} Time; Time t;
+void makeTime(int a);
+void scramble(void);
+int startTime;
+int endTime;
+int totalTime;
+int recordTime;
 int moveCnt=0;
 int rngside;
 int rngdir;
@@ -22,59 +29,39 @@ char storage;
 void rotation(void);
 void rotationsingle(char *side);
 char sideChoice;
-char dirChoice;
+int dirAmt;
 void printRules(void);
 void printCube(void);
 char ruleChoice;
 int main(void){
     printRules();
-    srand(time(0));
-    for(int i=0;i<40;i++){
-        rngside=rand()%6;
-        if(rngside==0){
-            sideChoice='U';
-            for(int j=0;j<(rand()%4+1);j++){
-                rotationsingle(&sideChoice);
-            }
-        }
-        else if(rngside==1){
-            sideChoice='R';
-            for(int j=0;j<(rand()%4+1);j++){
-                rotationsingle(&sideChoice);
-            }
-        }
-        else if(rngside==2){
-            sideChoice='B';
-            for(int j=0;j<(rand()%4+1);j++){
-                rotationsingle(&sideChoice);
-            }
-        }
-        else if(rngside==3){
-            sideChoice='L';
-            for(int j=0;j<(rand()%4+1);j++){
-                rotationsingle(&sideChoice);
-            }
-        }
-        else if(rngside==4){
-            sideChoice='D';
-            for(int j=0;j<(rand()%4+1);j++){
-                rotationsingle(&sideChoice);
-            }
-        }
-        else if(rngside==5){
-            sideChoice='F';
-            for(int j=0;j<(rand()%4+1);j++){
-                rotationsingle(&sideChoice);
-            }
-        }
-    }
+    scramble();
+    printf("\n");
     printCube();
+    printf("\n");
+    startTime=time(0);
      while(!sideCheck(white, whiteCheck)||!sideCheck(red, redCheck)||!sideCheck(blue, blueCheck)||!sideCheck(yellow, yellowCheck)||!sideCheck(orange, orangeCheck)||!sideCheck(green, greenCheck)){
         rotation();
+        printf("\n");
         printCube();
+        printf("\n");
         moveCnt++;
     }
-    printf("Congradulations! You've solved it in %d moves!", moveCnt);
+    endTime=time(0);
+    totalTime=endTime-startTime;
+    makeTime(totalTime);
+    printf("Congradulations! You've solved it in %d moves!\n", moveCnt);
+    if(t.hours==0){
+        if(t.minutes==0){
+            printf("Time elapsed: %2d seconds\n", t.seconds);
+        }
+        else{
+            printf("Time elapsed: %2d minutes, %2d seconds\n", t.minutes, t.seconds);
+        }
+    }
+    else{
+        printf("Time elapsed: %2d hours, %2d minutes, %2d seconds\n", t.hours, t.minutes, t.seconds);
+    }
 }
 void printRules(void){
     puts("Hello, and welcome to the Rubik's cube.");
@@ -102,19 +89,9 @@ void rotation(void){
         printf("Which side would you like to rotate? (U/D/F/B/R/L)  ");
         scanf(" %c", &sideChoice);
     }
-    printf("Rotate counterclockwise? Y/N ");
-    scanf(" %c", &dirChoice);
-    while(dirChoice!='Y'&&dirChoice!='N'){
-        puts("Sorry, that is unrecognized, please try again.");
-        printf("Rotate counterclockwise? Y/N ");
-        scanf(" %c", &dirChoice);
-    }
-    if(dirChoice=='Y'){
-        for(int i=0;i<3;i++){
-            rotationsingle(&sideChoice);
-        }
-    }
-    else if(dirChoice=='N'){
+    printf("How many 90 degree rotations would you like to rotate by? ");
+    scanf("%d", &dirAmt);
+    for(int i=0;i<dirAmt;i++){
         rotationsingle(&sideChoice);
     }
 }
@@ -326,5 +303,57 @@ void printCube(void){
             printf(" %c", yellow[i][j]);
         }
         printf("\n");
+    }
+}
+void makeTime(int a){
+    t.seconds=a;
+    t.minutes=t.seconds/60;
+    t.seconds-=t.minutes*60;
+    t.hours=t.minutes/60;
+    t.minutes-=t.hours*60;
+}
+void scramble(void){
+    int scrambleSize;
+    printf("How many steps long should the scramble be? (20-25 will be enough to sufficiently scramble the cube if that is what you wish) ");
+    scanf("%d", &scrambleSize);
+    srand(time(0));
+    for(int i=0;i<scrambleSize;i++){
+        rngside=rand()%6;
+        if(rngside==0){
+            sideChoice='U';
+            for(int j=0;j<(rand()%4+1);j++){
+                rotationsingle(&sideChoice);
+            }
+        }
+        else if(rngside==1){
+            sideChoice='R';
+            for(int j=0;j<(rand()%4+1);j++){
+                rotationsingle(&sideChoice);
+            }
+        }
+        else if(rngside==2){
+            sideChoice='B';
+            for(int j=0;j<(rand()%4+1);j++){
+                rotationsingle(&sideChoice);
+            }
+        }
+        else if(rngside==3){
+            sideChoice='L';
+            for(int j=0;j<(rand()%4+1);j++){
+                rotationsingle(&sideChoice);
+            }
+        }
+        else if(rngside==4){
+            sideChoice='D';
+            for(int j=0;j<(rand()%4+1);j++){
+                rotationsingle(&sideChoice);
+            }
+        }
+        else if(rngside==5){
+            sideChoice='F';
+            for(int j=0;j<(rand()%4+1);j++){
+                rotationsingle(&sideChoice);
+            }
+        }
     }
 }
