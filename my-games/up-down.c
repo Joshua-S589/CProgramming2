@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
-#include "die-roller.h"
+#include "../die-roller.h"
 void rules(void);
 char readRules;
 int myDie1;
