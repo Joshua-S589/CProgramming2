@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
-#include "../die-roller.h"
+#include "../functions.h"
 void rules(void);
 char readRules;
 int myDie1;
@@ -19,11 +19,11 @@ int main(void){
     rules();
     for(int i=0;i<1000;i++){
         myDieTotal=0;dealerDieTotal=0;
-        printf("How much do you bet this round? ");
+        printf("How much do you bet this round? $");
         scanf("%d", &myBet);
         while(!(myBet>0&&myBet<=myMoney)){
             printf("Sorry, that amount is outside of the limit of how much you can bet\n");
-            printf("How much do you bet this round? ");
+            printf("How much do you bet this round? $");
             scanf("%d", &myBet);
         }
         usleep(1000000);
@@ -81,10 +81,11 @@ void rules(void){
         scanf(" %c", &readRules);
     }
     if(readRules=='Y'){
-        printf("In this game, your goal is to accurately predict whether your combined roll of two dice is going to be higher or lower than the dealer's, and to roll that outcome.\n");usleep(1000000);
-        printf("First, the dealer will roll one die, to which you will make your prediction followed byu the rolling of your dice.\n");usleep(1000000);
-        printf("After you roll both of your dice, the dealer will roll their second die.\n");usleep(1000000);
-        printf("If your combined roll is higher or lower than the dealer's (depending on your prediction), then you win a 2x payout.\n");usleep(1000000);
-        printf("If it is either in the opposite direction, OR a tie, then you unfortunately lose your bet :(\n");usleep(1000000);
+        printf("In this game, your goal is to accurately predict whether your combined roll of two dice is going to be higher or lower than the dealer's, and to roll that outcome.\n");sleep(3);
+        printf("First, the dealer will roll one die, to which you will make your prediction followed by the rolling of your dice.\n");sleep(3);
+        printf("After you roll both of your dice, the dealer will roll their second die.\n");sleep(3);
+        printf("If your combined roll is higher or lower than the dealer's (depending on your prediction), then you win a 2x payout.\n");sleep(3);
+        printf("If it is either in the opposite direction, OR a tie, then you unfortunately lose your bet :(\n");sleep(3);
+        printf("You will start with $100\n");sleep(3);
     }
 }
