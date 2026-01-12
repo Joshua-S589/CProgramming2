@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
-#include "../die-roller.h"
+#include "/workspaces/CProgramming2/functions/die-roller.h"
 int diceHold(void);
 int diecount(void);
 int score(void);

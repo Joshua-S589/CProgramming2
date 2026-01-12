@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "../functions.h"
+#include "/workspaces/CProgramming2/functions/time-struct.h"
 char white[3][3]={{'W','W','W'},{'W','W','W'},{'W','W','W'}};
 char red[3][3]={{'R','R','R'},{'R','R','R'},{'R','R','R'}};
 char blue[3][3]={{'B','B','B'},{'B','B','B'},{'B','B','B'}};

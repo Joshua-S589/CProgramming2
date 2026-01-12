@@ -6,8 +6,6 @@ void dieRoll8(int *die);
 void dieRoll10(int *die);
 void dieRoll12(int *die);
 void dieRoll20(int *die);
-typedef struct{int hours; int minutes; int seconds;} Time; Time t;
-void makeTime(int a);
 void dieRoll4(int *die){
     *die=(rand()%4)+1;
 }
@@ -25,11 +23,4 @@ void dieRoll12(int *die){
 }
 void dieRoll20(int *die){
     *die=(rand()%20)+1;
-}
-void makeTime(int a){
-    t.seconds=a;
-    t.minutes=t.seconds/60;
-    t.seconds-=t.minutes*60;
-    t.hours=t.minutes/60;
-    t.minutes-=t.hours*60;
 }
