@@ -25,19 +25,17 @@ int nononcxtest=0;
 int bladetest=0;
 int ratchettest=0;
 int bittest=0;
-int avbladecnt;
-int avmainbladecnt;
-int avratchetcnt;
-int avbitcnt;
 char decision;
 char userDecision;
 void main(void){
     srand(time(0));
     userSelect();
+    for(int i=0;i<(plccnt+mlccnt);i++){
+        printf("%d", lockChipCollection[i]);
+    }
     for(int a=0;a<1000;a++){
         printf("How many combos would you like your deck to contain?\n");
         scanf(" %d", &deckSize);
-        while
         for(int b=0;b<deckSize;b++){
             comboRandomizer();
         }
@@ -387,15 +385,6 @@ void userSelect(void){
     }
     else if(userDecision=='N'){
         partGetter();
-    }
-    for(int i=0;i<(bladecnt+mainBladecnt);i++){
-        avbladecnt+=bladeCollection[i];
-    }
-    for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
-        avratchetcnt+=ratchetCollection[i];
-    }
-    for(int i=0;i<bitcnt;i++){
-        avbitcnt+=bitCollection[i];
     }
 }
 void partsCheck(void){
