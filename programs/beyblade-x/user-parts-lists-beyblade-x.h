@@ -22,3 +22,9 @@ char user_blade_cx[1000][50]={"Antler", "Arc", "Blast", "Brave", "Brush", "Dark"
 char user_assist_blade_cx[100][50]={"A", "B", "C", "D", "F", "H", "J", "M", "R", "S", "T", "W", "Z"};
 char user_ratchet_cx[100][50]={"0-60", "4-55", "6-60", "6-80", "Op", "Tr"};
 char user_bit_cx[100][50]={"GR", "K", "LO", "TK", "V", "WB", "WW", "W"};
+int user_Yako_bladecnt=12; int user_Yako_assistbladecnt=1; int user_Yako_lockchipcnt=1; int user_Yako_ratchetcnt=11; int user_Yako_bitcnt=12;
+char user_blade_Yako[1000][50]={"Whale Wave", "Leon Claw", "Gill Shark", "Phoenix Wing", "Arc", "Shark Edge", "Clock Mirage", "Wizard Arrow", "Sphinx Cowl", "Viper Tail", "Leon Crest", "Golem Rock"};
+char user_assist_blade_Yako[100][50]={"R"};
+char user_lock_chip_Yako[100][50]={"Wizard"};
+char user_ratchet_Yako[100][50]={"5-80", "5-60", "9-65", "4-55", "9-60", "3-60", "4-80", "1-80", "5-70", "1-60", "7-60"};
+char user_bit_Yako[100][50]={"GF", "UN", "F", "D", "H", "GN", "GB", "O", "T", "HN", "B", "Q"};
