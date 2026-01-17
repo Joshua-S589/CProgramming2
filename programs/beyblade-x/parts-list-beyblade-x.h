@@ -6,6 +6,9 @@ int ratchetcnt=33;
 int bitcnt=44;
 int mlccnt=2;
 int plccnt=12;
+int simpleRatchetcnt=5;
+int simpleBladecnt=1;
+int bladeBxcnt=25;
 char blade[109][50]={"Black Shell", "Cobalt Dragoon", "Cobalt Drake", "Crimson Garuda", "Dran Dagger", "Dran Sword", "Hells Chain", "Hells Scythe", "Knight Lance", "Knight Shield", "Leon Claw", "Phoenix Feather", "Phoenix Wing", "Rhino Horn", "Samurai Calibur", "Shark Edge", "Shelter Drake", "Sphinx Cowl", "Tricera Press", "Tyranno Beat", "Unicorn Sting", "Viper Tail", "Weiss Tiger", "Whale Wave", "Wizard Arrow", "Wyvern Gale",
      "Aero Pegasus", "Clock Mirage", "Dran Buster", "Ghost Circle", "Golem Rock", "Hells Hammer", "Hover Wyvern", "Impact Drake", "Knight Mail", "Leon Crest", "Mummy Cusrse", "Orochi Cluster", "Phoenix Rudder", "Samurai Saber", "Scorpio Spear", "Shark Scale", "Shinobi Shadow", "Silver Wolf", "Stun Medusa", "Viking Hack", "Wizard Rod", 
      "Draciel Shield", "Dragoon Storm", "Dranzer Spiral", "Driger Slash", "Lightning L-Drago", "Rock Leon", "Storm Pegasus", "Victory Valkyrie", "Xeno Xcalibur",
@@ -16,6 +19,8 @@ char assist_blade[13][50]={"A", "B", "C", "D", "F", "H", "J", "M", "R", "S", "T"
 char ratchet[35][50]={"Op", "Tr", "0-60", "0-70", "0-80", "1-60", "1-70", "1-80", "2-60", "2-70", "2-80", "3-60", "3-70", "3-80", "3-85", "4-50", "4-55", "4-60", "4-70", "4-80", "5-60", "5-70", "5-80", "M-85", "6-60", "6-70", "6-80", "7-55", "7-60", "7-70", "7-80", "9-60", "9-65", "9-70", "9-80"};
 char bit[44][50]={"A", "B", "BS", "C", "D", "DB", "E", "F", "FB", "G", "GB", "GF", "GN", "GP", "GR", "H", "HN", "HT", "J", "K", "L", "LF", "LO", "LR", "M", "MN", "N", "O", "P", "Q", "R", "RA", "S", "T", "TK", "TP", "U", "UF", "UN", "V", "W", "WB", "WW", "Z"};
 char lock_chip[14][50]={"Valkyrie", "Emperor", "Cerberus", "Dran", "Fox", "Hells", "Pegasus", "Perseus", "Phoenix", "Rhino", "Sol", "Whale", "Wizard", "Wolf"};
+char simple_ratchet[5][50]={"3-85", "4-55", "M-85", "7-55", "9-65"};
+char simple_blade[1][50]={"Clock Mirage"};
 int bladeCollection1[109];
 int bladeCollectionClone1[109];
 int assistBladeCollection1[13];

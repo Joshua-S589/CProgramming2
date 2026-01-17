@@ -34,16 +34,23 @@ int nononcxtest=0;
 int nomlc;
 int playercnt;
 int ratchettest=0;
+int simpleratchettest;
+int trash=1;
 int userChoice;
 char decision;
 char userDecision;
+const char* str1;
+const char* str2=blade[27];
+const char* str3=simple_ratchet[1];
+const char* str4=simple_ratchet[2];
+const char* str5=simple_ratchet[3];
+const char* str6=simple_ratchet[4];
+const char* str7=simple_ratchet[5];
+const char* str8;
 void main(void){
     srand(time(0));
     playerCnt();
     userSelect1();
-    if(playercnt==2){
-        userSelect2();
-    }
     if(playercnt==1){
         for(int a=0;a<1000;a++){
             printf("How many combos would you like your deck to contain?\n");
@@ -56,6 +63,7 @@ void main(void){
         }
     }
     if(playercnt==2){
+        userSelect2();
         for(int a=0;a<1000;a++){
             printf("How many combos would you like your decks to contain?\n");
             scanf(" %d", &deckSize);
@@ -90,6 +98,7 @@ void comboRandomizer1(void){
     while(bladeCollectionClone1[choiceBlade]==0){
         choiceBlade=rand()%(bladecnt+mainBladecnt);
     }
+    str1=blade[choiceBlade];
     if(choiceBlade<bladecnt){
         printf("%s", blade[choiceBlade]);
         printf(" ");
@@ -110,8 +119,16 @@ void comboRandomizer1(void){
         printf("%s", assist_blade[choiceAssistBlade]);
     }
     choiceRatchet=rand()%(ratchetIntegratedBitcnt+ratchetcnt);
-    while(ratchetCollectionClone1[choiceRatchet]==0){
+    str8=ratchet[choiceRatchet];
+    if(!strcmp(str1,str2)&&(!strcmp(str3,str8)||!strcmp(str4,str8)||!strcmp(str5,str8)||!strcmp(str6,str8)||!strcmp(str7,str8))){
         choiceRatchet=rand()%(ratchetIntegratedBitcnt+ratchetcnt);
+    }
+    while(ratchetCollectionClone1[choiceRatchet]==0){
+        choiceRatchet=rand()%(simpleRatchetcnt);
+        str8=ratchet[choiceRatchet];
+        if(!strcmp(str1,str2)&&(!strcmp(str3,str8)||!strcmp(str4,str8)||!strcmp(str5,str8)||!strcmp(str6,str8)||!strcmp(str7,str8))){
+            choiceRatchet=rand()%(ratchetIntegratedBitcnt+ratchetcnt);
+        }
     }
     printf("%s", ratchet[choiceRatchet]);
     printf(" ");
