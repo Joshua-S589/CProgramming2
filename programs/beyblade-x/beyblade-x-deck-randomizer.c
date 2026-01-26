@@ -40,7 +40,6 @@ int playercnt;
 int ratchettest=0;
 int simpleratchettest;
 int skipgentest;
-int trash=1;
 int userChoice;
 char nextDeck;
 char decision;
@@ -48,9 +47,6 @@ char userDecision;
 const char* str1;
 const char* str2;
 const char* str3;
-const char* str4;
-const char* str5;
-const char* str6;
 void main(void){
     srand(time(0));
     playerCnt();
@@ -223,7 +219,7 @@ void partGetter1(void){
         }
     }
     for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
-        str5=ratchet[i];
+        str2=ratchet[i];
         printf("Do you have the ratchet ");
         printf("%s", ratchet[i]);
         printf("? Y/N \n");
@@ -232,8 +228,8 @@ void partGetter1(void){
             ratchetCollection1[i]=1;
             ratchetCollectionClone1[i]=1;
             for(int j=0;j<simpleRatchetcnt;j++){
-                str6=simple_ratchet[j];
-                if(strcmp(str5,str6)==0){
+                str3=simple_ratchet[j];
+                if(strcmp(str2,str3)==0){
                     simpleRatchetCollection1[j]=1;
                     simpleRatchetCollectionClone1[j]=1;
                 }
@@ -388,7 +384,7 @@ void partGetter2(void){
         }
     }
     for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
-        str5=ratchet[i];
+        str2=ratchet[i];
         printf("Do you have the ratchet ");
         printf("%s", ratchet[i]);
         printf("? Y/N \n");
@@ -397,8 +393,8 @@ void partGetter2(void){
             ratchetCollection2[i]=1;
             ratchetCollectionClone2[i]=1;
             for(int j=0;j<simpleRatchetcnt;j++){
-                str6=simple_ratchet[j];
-                if(strcmp(str5,str6)==0){
+                str3=simple_ratchet[j];
+                if(strcmp(str2,str3)==0){
                     simpleRatchetCollection2[j]=1;
                     simpleRatchetCollectionClone2[j]=1;
                 }

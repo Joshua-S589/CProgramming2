@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <time.h>
+void dieRollN(int *die, int a);
 void dieRoll4(int *die);
 void dieRoll6(int *die);
 void dieRoll8(int *die);
@@ -23,4 +24,7 @@ void dieRoll12(int *die){
 }
 void dieRoll20(int *die){
     *die=(rand()%20)+1;
+}
+void dieRollN(int *die, int a){
+    *die=(rand()%a)+1;
 }
