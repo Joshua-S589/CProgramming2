@@ -47,7 +47,7 @@ char userDecision;
 const char* str1;
 const char* str2;
 const char* str3;
-void main(void){
+void makeTheCombos(void){
     srand(time(0));
     playerCnt();
     userSelect1();
