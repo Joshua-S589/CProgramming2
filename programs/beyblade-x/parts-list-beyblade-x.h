@@ -47,3 +47,6 @@ int simpleRatchetCollection1[5];
 int simpleRatchetCollectionClone1[5];
 int simpleRatchetCollection2[5];
 int simpleRatchetCollectionClone2[5];
+char combo_list_player_1[1000][1000];
+char combo_list_player_2[1000][1000];
+char blade_final[1000];
