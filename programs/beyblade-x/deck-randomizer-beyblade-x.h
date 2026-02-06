@@ -14,7 +14,7 @@ void userSelect1(void);
 void partsCheck1(void);
 void userSelect2(void);
 void partsCheck2(void);
-void playerCount(void);
+int playerCount(void);
 int simpleRatchetIfNeedBe(void);
 int comboRandomizerWhileLoop(int z);
 int avbitcnt;
@@ -49,106 +49,51 @@ char userDecision;
 const char* str1;
 const char* str2;
 const char* str3;
-void makeTheCombos(void){
+void makeTheCombos(int n){
     srand(time(0));
-    playerCount();
-    userSelect1();
-    if(playercnt==1){
-        for(int a=0;a<1;){
-            printf("How many combos would you like your deck to contain?\n");
-            scanf(" %d", &deckSize);
-            for(int b=0;b<deckSize;b++){
-                numOfDeck=b;
-                comboRandomizer1();
-                if(contgen==1){
-                    finalDeckSize=b+1;
-                    b+=deckSize;
-                    contgen=0;
-                }
+    if(n==1){
+        printf("How many combos would you like your deck to contain?\n");
+        scanf(" %d", &deckSize);
+        for(int b=0;b<deckSize;b++){
+            numOfDeck=b;
+            comboRandomizer1();
+            if(contgen==1){
                 finalDeckSize=b+1;
+                b+=deckSize;
+                contgen=0;
             }
-            cloneReset();
-            puts("");
-            deckSize=0;
-            printf("Deck:\n");
-            for(int z=0;z<finalDeckSize;z++){
-                printf("%s\n", combo_list_player_1[z]);
-            }
-            puts("");
-            printf("Generate another deck? Y/N\n");
-            scanf(" %c", &nextDeck);
-            if(nextDeck=='N'){
-                a++;
-            }
+            finalDeckSize=b+1;
         }
+        cloneReset();
+        puts("");
+        deckSize=0;
     }
-    if(playercnt==2){
-        userSelect2();
-        for(int a=0;a<1;){
-            printf("How many combos would you like your decks to contain?\n");
-            scanf(" %d", &deckSize);
-            // puts("Player 1 deck:");
-            for(int b=0;b<deckSize;b++){
-                numOfDeck=b;
-                comboRandomizer1();
-                if(contgen==1){
-                    finalDeckSize=b+1;
-                    b+=deckSize;
-                    contgen=0;
-                }
+    if(n==2){
+        printf("How many combos would you like your decks to contain?\n");
+        scanf(" %d", &deckSize);
+        for(int b=0;b<deckSize;b++){
+            numOfDeck=b;
+            comboRandomizer1();
+            if(contgen==1){
                 finalDeckSize=b+1;
+                b+=deckSize;
+                contgen=0;
             }
-            // puts("");
-            // puts("Player 2 deck:");
-            for(int b=0;b<deckSize;b++){
-                numOfDeck=b;
-                comboRandomizer2();
-                if(contgen==1){
-                    if(b+1<finalDeckSize){
-                        finalDeckSize=b+1;
-                    }
-                    b+=deckSize;
-                    contgen=0;
+            finalDeckSize=b+1;
+        }
+        for(int b=0;b<deckSize;b++){
+            numOfDeck=b;
+            comboRandomizer2();
+            if(contgen==1){
+                if(b+1<finalDeckSize){
+                    finalDeckSize=b+1;
                 }
-            }
-            // puts("");
-            cloneReset();
-            deckSize=0;
-            printf("Player 1 deck:\n");
-            for(int z=0;z<finalDeckSize;z++){
-                printf("%s\n", combo_list_player_1[z]);
-            }
-            puts("");
-            printf("Player 2 deck:\n");
-            for(int z=0;z<finalDeckSize;z++){
-                printf("%s\n", combo_list_player_2[z]);
-            }
-            puts("");
-            printf("Generate another deck? Y/N\n");
-            scanf(" %c", &nextDeck);
-            if(nextDeck=='N'){
-                a++;
+                b+=deckSize;
+                contgen=0;
             }
         }
-    }
-    printf("\n\n");
-    if(playercnt==1){
-        printf("Deck:\n");
-        for(int z=0;z<finalDeckSize;z++){
-            printf("%s\n", combo_list_player_1[z]);
-        }
-    }
-    else if(playercnt==2){
-        printf("Player 1 deck:\n");
-        for(int z=0;z<finalDeckSize;z++){
-            printf("%s\n", combo_list_player_1[z]);
-        }
-        puts("");
-        printf("Player 2 deck:\n");
-        for(int z=0;z<finalDeckSize;z++){
-            printf("%s\n", combo_list_player_2[z]);
-        }
-        puts("");
+        cloneReset();
+        deckSize=0;
     }
 }
 void comboRandomizer1(void){
@@ -174,8 +119,6 @@ void comboRandomizer1(void){
     }while(bladeCollectionClone1[choiceBlade]==0);
     str1=blade[choiceBlade];
     if(choiceBlade<bladecnt){
-        // printf("%s", blade[choiceBlade]);
-        // printf(" ");
         blade_final[0]='\n';
         sprintf(blade_final, "%s", blade[choiceBlade]);
     }
@@ -183,14 +126,9 @@ void comboRandomizer1(void){
         do{
             choiceLockChip=rand()%(mlccnt+plccnt);
         }while(lockChipCollectionClone1[choiceLockChip]==0);
-        // printf("%s", lock_chip[choiceLockChip]);
-        // printf(" ");
-        // printf("%s", blade[choiceBlade]);
-        // printf(" ");
         do{
             choiceAssistBlade=rand()%assistBladecnt;
         }while(assistBladeCollectionClone1[choiceAssistBlade]==0);
-        // printf("%s", assist_blade[choiceAssistBlade]);
         blade_final[0]='\n';
         sprintf(blade_final, "%s %s %s", lock_chip[choiceLockChip], blade[choiceBlade], assist_blade[choiceAssistBlade]);
     }
@@ -204,13 +142,10 @@ void comboRandomizer1(void){
             choiceRatchet=rand()%(ratchetcnt+ratchetIntegratedBitcnt);
         }while(ratchetCollectionClone1[choiceRatchet]==0);
     }
-    // printf("%s", ratchet[choiceRatchet]);
-    // printf(" ");
     if(choiceRatchet<simpleRatchetcnt||choiceRatchet>=(simpleRatchetcnt+ratchetIntegratedBitcnt)){
         do{
             choiceBit=rand()%bitcnt;
         }while(bitCollectionClone1[choiceBit]==0);
-        // printf("%s", bit[choiceBit]);
     }
     bladeCollectionClone1[choiceBlade]-=1;
     if(choiceLockChip<mlccnt){
@@ -241,7 +176,6 @@ void comboRandomizer1(void){
             sprintf(combo_list_player_1[numOfDeck], "%s %s", blade_final, ratchet[choiceRatchet]);
         }
     }
-    // puts("");
     return;
 }
 void partGetter1(void){
@@ -361,8 +295,6 @@ void comboRandomizer2(void){
     }while(bladeCollectionClone2[choiceBlade]==0);
     str1=blade[choiceBlade];
     if(choiceBlade<bladecnt){
-        // printf("%s", blade[choiceBlade]);
-        // printf(" ");
         blade_final[0]='\n';
         sprintf(blade_final, "%s", blade[choiceBlade]);
     }
@@ -370,14 +302,9 @@ void comboRandomizer2(void){
         do{
             choiceLockChip=rand()%(mlccnt+plccnt);
         }while(lockChipCollectionClone2[choiceLockChip]==0);
-        // printf("%s", lock_chip[choiceLockChip]);
-        // printf(" ");
-        // printf("%s", blade[choiceBlade]);
-        // printf(" ");
         do{
             choiceAssistBlade=rand()%assistBladecnt;
         }while(assistBladeCollectionClone2[choiceAssistBlade]==0);
-        // printf("%s", assist_blade[choiceAssistBlade]);
         blade_final[0]='\n';
         sprintf(blade_final, "%s %s %s", lock_chip[choiceLockChip], blade[choiceBlade], assist_blade[choiceAssistBlade]);
     }
@@ -391,13 +318,10 @@ void comboRandomizer2(void){
             choiceRatchet=rand()%(ratchetcnt+ratchetIntegratedBitcnt);
         }while(ratchetCollectionClone2[choiceRatchet]==0);
     }
-    // printf("%s", ratchet[choiceRatchet]);
-    // printf(" ");
     if(choiceRatchet<simpleRatchetcnt||choiceRatchet>=(simpleRatchetcnt+ratchetIntegratedBitcnt)){
         do{
             choiceBit=rand()%bitcnt;
         }while(bitCollectionClone2[choiceBit]==0);
-        // printf("%s", bit[choiceBit]);
     }
     bladeCollectionClone2[choiceBlade]-=1;
     if(choiceLockChip<mlccnt){
@@ -428,7 +352,6 @@ void comboRandomizer2(void){
             sprintf(combo_list_player_2[numOfDeck], "%s %s", blade_final, ratchet[choiceRatchet]);
         }
     }
-    // puts("");
     return;
 }
 void partGetter2(void){
@@ -564,12 +487,28 @@ void cloneReset(void){
     }
 }
 void userSelect1(void){
-    printf("Would you like to select a prerecorded set of parts? Y/N\n");
+    if(playercnt>1){
+        printf("Would you like to select a prerecorded set of parts for Player 1? Y/N\n");
+    }
+    else{
+        printf("Would you like to select a prerecorded set of parts? Y/N\n");
+    }
     scanf(" %c", &userDecision);
+    while(!(userDecision=='Y'||userDecision=='N')){
+        puts("Sorry, that is an invalid response, please reenter");
+        printf("Would you like to select a prerecorded set of parts? Y/N\n");
+        scanf(" %c", &userDecision);
+    }
     if(userDecision=='Y'){
         printf("Which user would you like to load?\n");
         printf("BX parts (1), UX parts (2), CX parts(3), Snek Blades(4), Yako(5), Ben(6)\n");
         scanf(" %d", &userChoice);
+        while(userChoice<1||userChoice>6){
+            puts("Sorry, that is an invalid response, please reenter");
+            printf("Which user would you like to load?\n");
+            printf("BX parts (1), UX parts (2), CX parts(3), Snek Blades(4), Yako(5), Ben(6)\n");
+            scanf(" %d", &userChoice);
+        }
         if(userChoice==1){
             for(int i=0;i<(bladecnt+mainBladecnt);i++){
                 for(int j=0;j<user_bx_bladecnt;j++){
@@ -907,10 +846,21 @@ void partsCheck1(void){
 void userSelect2(void){
     printf("Would you like to select a prerecorded set of parts for Player 2? Y/N\n");
     scanf(" %c", &userDecision);
+    while(!(userDecision=='Y'||userDecision=='N')){
+        puts("Sorry, that is an invalid response, please reenter");
+        printf("Would you like to select a prerecorded set of parts for Player 2? Y/N\n");
+        scanf(" %c", &userDecision);
+    }
     if(userDecision=='Y'){
         printf("Which user would you like to load?\n");
         printf("BX parts (1), UX parts (2), CX parts(3), Snek Blades(4), Yako(5), Ben(6)\n");
         scanf(" %d", &userChoice);
+        while(userChoice<1||userChoice>6){
+            puts("Sorry, that is an invalid response, please reenter");
+            printf("Which user would you like to load?\n");
+            printf("BX parts (1), UX parts (2), CX parts(3), Snek Blades(4), Yako(5), Ben(6)\n");
+            scanf(" %d", &userChoice);
+        }
         if(userChoice==1){
             for(int i=0;i<(bladecnt+mainBladecnt);i++){
                 for(int j=0;j<user_bx_bladecnt;j++){
@@ -1245,7 +1195,7 @@ void partsCheck2(void){
         contgen=0;
     }
 }
-void playerCount(void){
+int playerCount(void){
     printf("Would you like to generate decks for 1 or 2 players? ");
     scanf(" %d", &playercnt);
     while(!(playercnt==1||playercnt==2)){
@@ -1253,4 +1203,5 @@ void playerCount(void){
         printf("Would you like to generate decks for 1 or 2 players? ");
         scanf(" %d", &playercnt);
     }
+    return playercnt;
 }
