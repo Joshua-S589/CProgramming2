@@ -5,50 +5,8 @@
 #include <string.h>
 #include "/workspaces/CProgramming2/programs/beyblade-x/parts-list-beyblade-x.h"
 #include "/workspaces/CProgramming2/programs/beyblade-x/user-parts-lists-beyblade-x.h"
-void comboRandomizer1(void);
-void partGetter1(void);
-void comboRandomizer2(void);
-void partGetter2(void);
-void cloneReset(void);
-void userSelect1(void);
-void partsCheck1(void);
-void userSelect2(void);
-void partsCheck2(void);
-int playerCount(void);
-int simpleRatchetIfNeedBe(void);
-int comboRandomizerWhileLoop(int z);
-int avbitcnt;
-int avbladecnt;
-int avmainbladecnt;
-int avratchetcnt;
-int acsimplerathcetcnt;
-int bittest=0;
-int bladetest=0;
-int choiceAssistBlade;
-int choiceBit;
-int choiceBlade;
-int choiceLockChip;
-int choiceMainBlade;
-int choiceRatchet;
-int choiceRatchetIntegratedBit;
-int contgen;
-int deckSize=0;
-int finalDeckSize;
-int nocxtest=0;
-int nononcxtest=0;
-int nomlc;
-int numOfDeck;
-int playercnt;
-int ratchettest=0;
-int simpleratchettest;
-int skipgentest;
-int userChoice;
-char nextDeck;
-char decision;
-char userDecision;
-const char* str1;
-const char* str2;
-const char* str3;
+#include "/workspaces/CProgramming2/programs/beyblade-x/match-beyblade-x.h"
+#include "/workspaces/CProgramming2/programs/beyblade-x/var-and-fun/deck-ran.h"
 void makeTheCombos(int n){
     srand(time(0));
     if(n==1){
@@ -57,6 +15,7 @@ void makeTheCombos(int n){
         for(int b=0;b<deckSize;b++){
             numOfDeck=b;
             comboRandomizer1();
+            avbCombo1[b]=1;
             if(contgen==1){
                 finalDeckSize=b+1;
                 b+=deckSize;
@@ -74,6 +33,7 @@ void makeTheCombos(int n){
         for(int b=0;b<deckSize;b++){
             numOfDeck=b;
             comboRandomizer1();
+            avbCombo1[b]=1;
             if(contgen==1){
                 finalDeckSize=b+1;
                 b+=deckSize;
@@ -84,6 +44,7 @@ void makeTheCombos(int n){
         for(int b=0;b<deckSize;b++){
             numOfDeck=b;
             comboRandomizer2();
+            avbCombo2[b]=1;
             if(contgen==1){
                 if(b+1<finalDeckSize){
                     finalDeckSize=b+1;
@@ -510,292 +471,22 @@ void userSelect1(void){
             scanf(" %d", &userChoice);
         }
         if(userChoice==1){
-            for(int i=0;i<(bladecnt+mainBladecnt);i++){
-                for(int j=0;j<user_bx_bladecnt;j++){
-                    if(strcmp(user_blade_bx[j],blade[i])==0){
-                        bladeCollection1[i]=1;
-                        bladeCollectionClone1[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(assistBladecnt);i++){
-                for(int j=0;j<(user_bx_assistbladecnt);j++){
-                    if(strcmp(user_assist_blade_bx[j],assist_blade[i])==0){
-                        assistBladeCollection1[i]=1;
-                        assistBladeCollectionClone1[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
-                for(int j=0;j<(user_bx_ratchetcnt);j++){
-                    if(strcmp(user_ratchet_bx[j],ratchet[i])==0){
-                        ratchetCollection1[i]=1;
-                        ratchetCollectionClone1[i]=1;
-                        for(int k=0;k<simpleRatchetcnt;k++){
-                            if(strcmp(ratchet[i],simple_ratchet[k])==0){
-                                simpleRatchetCollection1[k]=1;
-                                simpleRatchetCollectionClone1[k]=1;
-                            }
-                        }
-                    }
-                }
-            }
-            for(int i=0;i<(mlccnt+plccnt);i++){
-                for(int j=0;j<(user_bx_lockchipcnt);j++){
-                    if(strcmp(user_lock_chip_bx[j],lock_chip[i])==0){
-                        lockChipCollection1[i]=1;
-                        lockChipCollectionClone1[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(bitcnt);i++){
-                for(int j=0;j<(user_bx_bitcnt);j++){
-                    if(strcmp(user_bit_bx[j],bit[i])==0){
-                        bitCollection1[i]=1;
-                        bitCollectionClone1[i]=1;
-                    }
-                }
-            }
+            userChoiceAlign1(bx);
         }
         if(userChoice==2){
-            for(int i=0;i<(bladecnt+mainBladecnt);i++){
-                for(int j=0;j<testnum;j++){
-                    if(strcmp(user_test[j],blade[i])==0){
-                        bladeCollection1[i]=1;
-                        bladeCollectionClone1[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(assistBladecnt);i++){
-                for(int j=0;j<(user_ux_assistbladecnt);j++){
-                    if(strcmp(user_assist_blade_ux[j],assist_blade[i])==0){
-                        assistBladeCollection1[i]=1;
-                        assistBladeCollectionClone1[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
-                for(int j=0;j<(user_ux_ratchetcnt);j++){
-                    if(strcmp(user_ratchet_ux[j],ratchet[i])==0){
-                        ratchetCollection1[i]=1;
-                        ratchetCollectionClone1[i]=1;
-                        for(int k=0;k<simpleRatchetcnt;k++){
-                            if(strcmp(ratchet[i],simple_ratchet[k])==0){
-                                simpleRatchetCollection1[k]=1;
-                                simpleRatchetCollectionClone1[k]=1;
-                            }
-                        }
-                    }
-                }
-            }
-            for(int i=0;i<(mlccnt+plccnt);i++){
-                for(int j=0;j<(user_ux_lockchipcnt);j++){
-                    if(strcmp(user_lock_chip_ux[j],lock_chip[i])==0){
-                        lockChipCollection1[i]=1;
-                        lockChipCollectionClone1[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(bitcnt);i++){
-                for(int j=0;j<(user_ux_bitcnt);j++){
-                    if(strcmp(user_bit_ux[j],bit[i])==0){
-                        bitCollection1[i]=1;
-                        bitCollectionClone1[i]=1;
-                    }
-                }
-            }
+            userChoiceAlign1(ux);
         }
         if(userChoice==3){
-            for(int i=0;i<(bladecnt+mainBladecnt);i++){
-                for(int j=0;j<user_cx_bladecnt;j++){
-                    if(strcmp(user_blade_cx[j],blade[i])==0){
-                        bladeCollection1[i]=1;
-                        bladeCollectionClone1[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(assistBladecnt);i++){
-                for(int j=0;j<(user_cx_assistbladecnt);j++){
-                    if(strcmp(user_assist_blade_cx[j],assist_blade[i])==0){
-                        assistBladeCollection1[i]=1;
-                        assistBladeCollectionClone1[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
-                for(int j=0;j<(user_cx_ratchetcnt);j++){
-                    if(strcmp(user_ratchet_cx[j],ratchet[i])==0){
-                        ratchetCollection1[i]=1;
-                        ratchetCollectionClone1[i]=1;
-                        for(int k=0;k<simpleRatchetcnt;k++){
-                            if(strcmp(ratchet[i],simple_ratchet[k])==0){
-                                simpleRatchetCollection1[k]=1;
-                                simpleRatchetCollectionClone1[k]=1;
-                            }
-                        }
-                    }
-                }
-            }
-            for(int i=0;i<(mlccnt+plccnt);i++){
-                for(int j=0;j<(user_cx_lockchipcnt);j++){
-                    if(strcmp(user_lock_chip_cx[j],lock_chip[i])==0){
-                        lockChipCollection1[i]=1;
-                        lockChipCollectionClone1[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(bitcnt);i++){
-                for(int j=0;j<(user_cx_bitcnt);j++){
-                    if(strcmp(user_bit_cx[j],bit[i])==0){
-                        bitCollection1[i]=1;
-                        bitCollectionClone1[i]=1;
-                    }
-                }
-            }
+            userChoiceAlign1(cx);
         }
         if(userChoice==4){
-            for(int i=0;i<(bladecnt+mainBladecnt);i++){
-                for(int j=0;j<user_Snek_Blades_bladecnt;j++){
-                    if(strcmp(user_blade_Snek_Blades[j],blade[i])==0){
-                        bladeCollection1[i]=1;
-                        bladeCollectionClone1[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(assistBladecnt);i++){
-                for(int j=0;j<(user_Snek_Blades_assistbladecnt);j++){
-                    if(strcmp(user_assist_blade_Snek_Blades[j],assist_blade[i])==0){
-                        assistBladeCollection1[i]=1;
-                        assistBladeCollectionClone1[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
-                for(int j=0;j<(user_Snek_Blades_ratchetcnt);j++){
-                    if(strcmp(user_ratchet_Snek_Blades[j],ratchet[i])==0){
-                        ratchetCollection1[i]=1;
-                        ratchetCollectionClone1[i]=1;
-                        for(int k=0;k<simpleRatchetcnt;k++){
-                            if(strcmp(ratchet[i],simple_ratchet[k])==0){
-                                simpleRatchetCollection1[k]=1;
-                                simpleRatchetCollectionClone1[k]=1;
-                            }
-                        }
-                    }
-                }
-            }
-            for(int i=0;i<(mlccnt+plccnt);i++){
-                for(int j=0;j<(user_Snek_Blades_lockchipcnt);j++){
-                    if(strcmp(user_lock_chip_Snek_Blades[j],lock_chip[i])==0){
-                        lockChipCollection1[i]=1;
-                        lockChipCollectionClone1[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(bitcnt);i++){
-                for(int j=0;j<(user_Snek_Blades_bitcnt);j++){
-                    if(strcmp(user_bit_Snek_Blades[j],bit[i])==0){
-                        bitCollection1[i]=1;
-                        bitCollectionClone1[i]=1;
-                    }
-                }
-            }
+            userChoiceAlign1(Snek_blades);
         }
         if(userChoice==5){
-            for(int i=0;i<(bladecnt+mainBladecnt);i++){
-                for(int j=0;j<user_Yako_bladecnt;j++){
-                    if(strcmp(user_blade_Yako[j],blade[i])==0){
-                        bladeCollection1[i]=1;
-                        bladeCollectionClone1[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(assistBladecnt);i++){
-                for(int j=0;j<(user_Yako_assistbladecnt);j++){
-                    if(strcmp(user_assist_blade_Yako[j],assist_blade[i])==0){
-                        assistBladeCollection1[i]=1;
-                        assistBladeCollectionClone1[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
-                for(int j=0;j<(user_Yako_ratchetcnt);j++){
-                    if(strcmp(user_ratchet_Yako[j],ratchet[i])==0){
-                        ratchetCollection1[i]=1;
-                        ratchetCollectionClone1[i]=1;
-                        for(int k=0;k<simpleRatchetcnt;k++){
-                            if(strcmp(ratchet[i],simple_ratchet[k])==0){
-                                simpleRatchetCollection1[k]=1;
-                                simpleRatchetCollectionClone1[k]=1;
-                            }
-                        }
-                    }
-                }
-            }
-            for(int i=0;i<(mlccnt+plccnt);i++){
-                for(int j=0;j<(user_Yako_lockchipcnt);j++){
-                    if(strcmp(user_lock_chip_Yako[j],lock_chip[i])==0){
-                        lockChipCollection1[i]=1;
-                        lockChipCollectionClone1[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(bitcnt);i++){
-                for(int j=0;j<(user_Yako_bitcnt);j++){
-                    if(strcmp(user_bit_Yako[j],bit[i])==0){
-                        bitCollection1[i]=1;
-                        bitCollectionClone1[i]=1;
-                    }
-                }
-            }
+            userChoiceAlign1(Yako);
         }
         if(userChoice==6){
-            for(int i=0;i<(bladecnt+mainBladecnt);i++){
-                for(int j=0;j<user_Ben_bladecnt;j++){
-                    if(strcmp(user_blade_Ben[j],blade[i])==0){
-                        bladeCollection1[i]=1;
-                        bladeCollectionClone1[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(assistBladecnt);i++){
-                for(int j=0;j<(user_Ben_assistbladecnt);j++){
-                    if(strcmp(user_assist_blade_Ben[j],assist_blade[i])==0){
-                        assistBladeCollection1[i]=1;
-                        assistBladeCollectionClone1[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
-                for(int j=0;j<(user_Ben_ratchetcnt);j++){
-                    if(strcmp(user_ratchet_Ben[j],ratchet[i])==0){
-                        ratchetCollection1[i]=1;
-                        ratchetCollectionClone1[i]=1;
-                        for(int k=0;k<simpleRatchetcnt;k++){
-                            if(strcmp(ratchet[i],simple_ratchet[k])==0){
-                                simpleRatchetCollection1[k]=1;
-                                simpleRatchetCollectionClone1[k]=1;
-                            }
-                        }
-                    }
-                }
-            }
-            for(int i=0;i<(mlccnt+plccnt);i++){
-                for(int j=0;j<(user_Ben_lockchipcnt);j++){
-                    if(strcmp(user_lock_chip_Ben[j],lock_chip[i])==0){
-                        lockChipCollection1[i]=1;
-                        lockChipCollectionClone1[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(bitcnt);i++){
-                for(int j=0;j<(user_Ben_bitcnt);j++){
-                    if(strcmp(user_bit_Ben[j],bit[i])==0){
-                        bitCollection1[i]=1;
-                        bitCollectionClone1[i]=1;
-                    }
-                }
-            }
+            userChoiceAlign1(Ben);
         }
     }
     else if(userDecision=='N'){
@@ -862,292 +553,22 @@ void userSelect2(void){
             scanf(" %d", &userChoice);
         }
         if(userChoice==1){
-            for(int i=0;i<(bladecnt+mainBladecnt);i++){
-                for(int j=0;j<user_bx_bladecnt;j++){
-                    if(strcmp(user_blade_bx[j],blade[i])==0){
-                        bladeCollection2[i]=1;
-                        bladeCollectionClone2[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(assistBladecnt);i++){
-                for(int j=0;j<(user_bx_assistbladecnt);j++){
-                    if(strcmp(user_assist_blade_bx[j],assist_blade[i])==0){
-                        assistBladeCollection2[i]=1;
-                        assistBladeCollectionClone2[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
-                for(int j=0;j<(user_bx_ratchetcnt);j++){
-                    if(strcmp(user_ratchet_bx[j],ratchet[i])==0){
-                        ratchetCollection2[i]=1;
-                        ratchetCollectionClone2[i]=1;
-                        for(int k=0;k<simpleRatchetcnt;k++){
-                            if(strcmp(ratchet[i],simple_ratchet[k])==0){
-                                simpleRatchetCollection2[k]=1;
-                                simpleRatchetCollectionClone2[k]=1;
-                            }
-                        }
-                    }
-                }
-            }
-            for(int i=0;i<(mlccnt+plccnt);i++){
-                for(int j=0;j<(user_bx_lockchipcnt);j++){
-                    if(strcmp(user_lock_chip_bx[j],lock_chip[i])==0){
-                        lockChipCollection2[i]=1;
-                        lockChipCollectionClone2[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(bitcnt);i++){
-                for(int j=0;j<(user_bx_bitcnt);j++){
-                    if(strcmp(user_bit_bx[j],bit[i])==0){
-                        bitCollection2[i]=1;
-                        bitCollectionClone2[i]=1;
-                    }
-                }
-            }
+            userChoiceAlign2(bx);
         }
         if(userChoice==2){
-            for(int i=0;i<(bladecnt+mainBladecnt);i++){
-                for(int j=0;j<user_ux_bladecnt;j++){
-                    if(strcmp(user_blade_ux[j],blade[i])==0){
-                        bladeCollection2[i]=1;
-                        bladeCollectionClone2[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(assistBladecnt);i++){
-                for(int j=0;j<(user_ux_assistbladecnt);j++){
-                    if(strcmp(user_assist_blade_ux[j],assist_blade[i])==0){
-                        assistBladeCollection2[i]=1;
-                        assistBladeCollectionClone2[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
-                for(int j=0;j<(user_ux_ratchetcnt);j++){
-                    if(strcmp(user_ratchet_ux[j],ratchet[i])==0){
-                        ratchetCollection2[i]=1;
-                        ratchetCollectionClone2[i]=1;
-                        for(int k=0;k<simpleRatchetcnt;k++){
-                            if(strcmp(ratchet[i],simple_ratchet[k])==0){
-                                simpleRatchetCollection2[k]=1;
-                                simpleRatchetCollectionClone2[k]=1;
-                            }
-                        }
-                    }
-                }
-            }
-            for(int i=0;i<(mlccnt+plccnt);i++){
-                for(int j=0;j<(user_ux_lockchipcnt);j++){
-                    if(strcmp(user_lock_chip_ux[j],lock_chip[i])==0){
-                        lockChipCollection2[i]=1;
-                        lockChipCollectionClone2[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(bitcnt);i++){
-                for(int j=0;j<(user_ux_bitcnt);j++){
-                    if(strcmp(user_bit_ux[j],bit[i])==0){
-                        bitCollection2[i]=1;
-                        bitCollectionClone2[i]=1;
-                    }
-                }
-            }
+            userChoiceAlign2(ux);
         }
         if(userChoice==3){
-            for(int i=0;i<(bladecnt+mainBladecnt);i++){
-                for(int j=0;j<user_cx_bladecnt;j++){
-                    if(strcmp(user_blade_cx[j],blade[i])==0){
-                        bladeCollection2[i]=1;
-                        bladeCollectionClone2[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(assistBladecnt);i++){
-                for(int j=0;j<(user_cx_assistbladecnt);j++){
-                    if(strcmp(user_assist_blade_cx[j],assist_blade[i])==0){
-                        assistBladeCollection2[i]=1;
-                        assistBladeCollectionClone2[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
-                for(int j=0;j<(user_cx_ratchetcnt);j++){
-                    if(strcmp(user_ratchet_cx[j],ratchet[i])==0){
-                        ratchetCollection2[i]=1;
-                        ratchetCollectionClone2[i]=1;
-                        for(int k=0;k<simpleRatchetcnt;k++){
-                            if(strcmp(ratchet[i],simple_ratchet[k])==0){
-                                simpleRatchetCollection2[k]=1;
-                                simpleRatchetCollectionClone2[k]=1;
-                            }
-                        }
-                    }
-                }
-            }
-            for(int i=0;i<(mlccnt+plccnt);i++){
-                for(int j=0;j<(user_cx_lockchipcnt);j++){
-                    if(strcmp(user_lock_chip_cx[j],lock_chip[i])==0){
-                        lockChipCollection2[i]=1;
-                        lockChipCollectionClone2[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(bitcnt);i++){
-                for(int j=0;j<(user_cx_bitcnt);j++){
-                    if(strcmp(user_bit_cx[j],bit[i])==0){
-                        bitCollection2[i]=1;
-                        bitCollectionClone2[i]=1;
-                    }
-                }
-            }
+            userChoiceAlign2(cx);
         }
         if(userChoice==4){
-            for(int i=0;i<(bladecnt+mainBladecnt);i++){
-                for(int j=0;j<user_Snek_Blades_bladecnt;j++){
-                    if(strcmp(user_blade_Snek_Blades[j],blade[i])==0){
-                        bladeCollection2[i]=1;
-                        bladeCollectionClone2[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(assistBladecnt);i++){
-                for(int j=0;j<(user_Snek_Blades_assistbladecnt);j++){
-                    if(strcmp(user_assist_blade_Snek_Blades[j],assist_blade[i])==0){
-                        assistBladeCollection2[i]=1;
-                        assistBladeCollectionClone2[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
-                for(int j=0;j<(user_Snek_Blades_ratchetcnt);j++){
-                    if(strcmp(user_ratchet_Snek_Blades[j],ratchet[i])==0){
-                        ratchetCollection2[i]=1;
-                        ratchetCollectionClone2[i]=1;
-                        for(int k=0;k<simpleRatchetcnt;k++){
-                            if(strcmp(ratchet[i],simple_ratchet[k])==0){
-                                simpleRatchetCollection2[k]=1;
-                                simpleRatchetCollectionClone2[k]=1;
-                            }
-                        }
-                    }
-                }
-            }
-            for(int i=0;i<(mlccnt+plccnt);i++){
-                for(int j=0;j<(user_Snek_Blades_lockchipcnt);j++){
-                    if(strcmp(user_lock_chip_Snek_Blades[j],lock_chip[i])==0){
-                        lockChipCollection2[i]=1;
-                        lockChipCollectionClone2[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(bitcnt);i++){
-                for(int j=0;j<(user_Snek_Blades_bitcnt);j++){
-                    if(strcmp(user_bit_Snek_Blades[j],bit[i])==0){
-                        bitCollection2[i]=1;
-                        bitCollectionClone2[i]=1;
-                    }
-                }
-            }
+            userChoiceAlign2(Snek_blades);
         }
         if(userChoice==5){
-            for(int i=0;i<(bladecnt+mainBladecnt);i++){
-                for(int j=0;j<user_Yako_bladecnt;j++){
-                    if(strcmp(user_blade_Yako[j],blade[i])==0){
-                        bladeCollection2[i]=1;
-                        bladeCollectionClone2[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(assistBladecnt);i++){
-                for(int j=0;j<(user_Yako_assistbladecnt);j++){
-                    if(strcmp(user_assist_blade_Yako[j],assist_blade[i])==0){
-                        assistBladeCollection2[i]=1;
-                        assistBladeCollectionClone2[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
-                for(int j=0;j<(user_Yako_ratchetcnt);j++){
-                    if(strcmp(user_ratchet_Yako[j],ratchet[i])==0){
-                        ratchetCollection2[i]=1;
-                        ratchetCollectionClone2[i]=1;
-                        for(int k=0;k<simpleRatchetcnt;k++){
-                            if(strcmp(ratchet[i],simple_ratchet[k])==0){
-                                simpleRatchetCollection2[k]=1;
-                                simpleRatchetCollectionClone2[k]=1;
-                            }
-                        }
-                    }
-                }
-            }
-            for(int i=0;i<(mlccnt+plccnt);i++){
-                for(int j=0;j<(user_Yako_lockchipcnt);j++){
-                    if(strcmp(user_lock_chip_Yako[j],lock_chip[i])==0){
-                        lockChipCollection2[i]=1;
-                        lockChipCollectionClone2[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(bitcnt);i++){
-                for(int j=0;j<(user_Yako_bitcnt);j++){
-                    if(strcmp(user_bit_Yako[j],bit[i])==0){
-                        bitCollection2[i]=1;
-                        bitCollectionClone2[i]=1;
-                    }
-                }
-            }
+            userChoiceAlign2(Yako);
         }
         if(userChoice==6){
-            for(int i=0;i<(bladecnt+mainBladecnt);i++){
-                for(int j=0;j<user_Ben_bladecnt;j++){
-                    if(strcmp(user_blade_Ben[j],blade[i])==0){
-                        bladeCollection2[i]=1;
-                        bladeCollectionClone2[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(assistBladecnt);i++){
-                for(int j=0;j<(user_Ben_assistbladecnt);j++){
-                    if(strcmp(user_assist_blade_Ben[j],assist_blade[i])==0){
-                        assistBladeCollection2[i]=1;
-                        assistBladeCollectionClone2[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
-                for(int j=0;j<(user_Ben_ratchetcnt);j++){
-                    if(strcmp(user_ratchet_Ben[j],ratchet[i])==0){
-                        ratchetCollection2[i]=1;
-                        ratchetCollectionClone2[i]=1;
-                        for(int k=0;k<simpleRatchetcnt;k++){
-                            if(strcmp(ratchet[i],simple_ratchet[k])==0){
-                                simpleRatchetCollection2[k]=1;
-                                simpleRatchetCollectionClone2[k]=1;
-                            }
-                        }
-                    }
-                }
-            }
-            for(int i=0;i<(mlccnt+plccnt);i++){
-                for(int j=0;j<(user_Ben_lockchipcnt);j++){
-                    if(strcmp(user_lock_chip_Ben[j],lock_chip[i])==0){
-                        lockChipCollection2[i]=1;
-                        lockChipCollectionClone2[i]=1;
-                    }
-                }
-            }
-            for(int i=0;i<(bitcnt);i++){
-                for(int j=0;j<(user_Ben_bitcnt);j++){
-                    if(strcmp(user_bit_Ben[j],bit[i])==0){
-                        bitCollection2[i]=1;
-                        bitCollectionClone2[i]=1;
-                    }
-                }
-            }
+            userChoiceAlign2(Ben);
         }
     }
     else if(userDecision=='N'){
@@ -1204,4 +625,100 @@ int playerCount(void){
         scanf(" %d", &playercnt);
     }
     return playercnt;
+}
+void userChoiceAlign1(struct User user_choice){
+    for(int i=0;i<(bladecnt+mainBladecnt);i++){
+        for(int j=0;j<user_choice.blade_cnt;j++){
+            if(strcmp(user_choice.blade[j],blade[i])==0){
+                bladeCollection1[i]=1;
+                bladeCollectionClone1[i]=1;
+            }
+        }
+    }
+    for(int i=0;i<(assistBladecnt);i++){
+        for(int j=0;j<(user_choice.assist_blade_cnt);j++){
+            if(strcmp(user_choice.assist_blade[j],assist_blade[i])==0){
+                assistBladeCollection1[i]=1;
+                assistBladeCollectionClone1[i]=1;
+            }
+        }
+    }
+    for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
+        for(int j=0;j<(user_choice.ratchet_cnt);j++){
+            if(strcmp(user_choice.ratchet[j],ratchet[i])==0){
+                ratchetCollection1[i]=1;
+                ratchetCollectionClone1[i]=1;
+                for(int k=0;k<simpleRatchetcnt;k++){
+                    if(strcmp(ratchet[i],simple_ratchet[k])==0){
+                        simpleRatchetCollection1[k]=1;
+                        simpleRatchetCollectionClone1[k]=1;
+                    }
+                }
+            }
+        }
+    }
+    for(int i=0;i<(mlccnt+plccnt);i++){
+        for(int j=0;j<(user_choice.lock_chip_cnt);j++){
+            if(strcmp(user_choice.lock_chip[j],lock_chip[i])==0){
+                lockChipCollection1[i]=1;
+                lockChipCollectionClone1[i]=1;
+            }
+        }
+    }
+    for(int i=0;i<(bitcnt);i++){
+        for(int j=0;j<(user_choice.bit_cnt);j++){
+            if(strcmp(user_choice.bit[j],bit[i])==0){
+                bitCollection1[i]=1;
+                bitCollectionClone1[i]=1;
+            }
+        }
+    }
+}
+void userChoiceAlign2(struct User user_choice){
+    for(int i=0;i<(bladecnt+mainBladecnt);i++){
+        for(int j=0;j<user_choice.blade_cnt;j++){
+            if(strcmp(user_choice.blade[j],blade[i])==0){
+                bladeCollection2[i]=1;
+                bladeCollectionClone2[i]=1;
+            }
+        }
+    }
+    for(int i=0;i<(assistBladecnt);i++){
+        for(int j=0;j<(user_choice.assist_blade_cnt);j++){
+            if(strcmp(user_choice.assist_blade[j],assist_blade[i])==0){
+                assistBladeCollection2[i]=1;
+                assistBladeCollectionClone2[i]=1;
+            }
+        }
+    }
+    for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
+        for(int j=0;j<(user_choice.ratchet_cnt);j++){
+            if(strcmp(user_choice.ratchet[j],ratchet[i])==0){
+                ratchetCollection2[i]=1;
+                ratchetCollectionClone2[i]=1;
+                for(int k=0;k<simpleRatchetcnt;k++){
+                    if(strcmp(ratchet[i],simple_ratchet[k])==0){
+                        simpleRatchetCollection2[k]=1;
+                        simpleRatchetCollectionClone2[k]=1;
+                    }
+                }
+            }
+        }
+    }
+    for(int i=0;i<(mlccnt+plccnt);i++){
+        for(int j=0;j<(user_choice.lock_chip_cnt);j++){
+            if(strcmp(user_choice.lock_chip[j],lock_chip[i])==0){
+                lockChipCollection2[i]=1;
+                lockChipCollectionClone2[i]=1;
+            }
+        }
+    }
+    for(int i=0;i<(bitcnt);i++){
+        for(int j=0;j<(user_choice.bit_cnt);j++){
+            if(strcmp(user_choice.bit[j],bit[i])==0){
+                bitCollection2[i]=1;
+                bitCollectionClone2[i]=1;
+            }
+        }
+    }
 }

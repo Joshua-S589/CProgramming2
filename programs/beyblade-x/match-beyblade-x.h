@@ -1,1 +1,9 @@
 #include <stdio.h>
+int avbCombo1[1000];
+int avbCombo2[1000];
+char deckOrder1[1000][1000];
+char deckOrder2[1000][1000];
+int greaterPoint;
+int pointGoal;
+int score1;
+int score2;
