@@ -3,6 +3,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdbool.h>
 #include "/workspaces/CProgramming2/programs/beyblade-x/parts-list-beyblade-x.h"
 #include "/workspaces/CProgramming2/programs/beyblade-x/user-parts-lists-beyblade-x.h"
 #include "/workspaces/CProgramming2/programs/beyblade-x/match-beyblade-x.h"
@@ -14,6 +15,7 @@ void makeTheCombos(int n){
         scanf(" %d", &deckSize);
         for(int b=0;b<deckSize;b++){
             numOfDeck=b;
+            combo_list_player_1[b][0]='\n';
             comboRandomizer1();
             avbCombo1[b]=1;
             if(contgen==1){
@@ -32,6 +34,7 @@ void makeTheCombos(int n){
         scanf(" %d", &deckSize);
         for(int b=0;b<deckSize;b++){
             numOfDeck=b;
+            combo_list_player_1[b][0]='\n';
             comboRandomizer1();
             avbCombo1[b]=1;
             if(contgen==1){
@@ -43,6 +46,7 @@ void makeTheCombos(int n){
         }
         for(int b=0;b<deckSize;b++){
             numOfDeck=b;
+            combo_list_player_2[b][0]='\n';
             comboRandomizer2();
             avbCombo2[b]=1;
             if(contgen==1){
@@ -58,6 +62,9 @@ void makeTheCombos(int n){
     }
 }
 void comboRandomizer1(void){
+    bool skipRatchet=false;
+    bool canCXExtend=false;
+    bool CXIsExtend;
     nocxtest=0;
     nononcxtest=0;
     bladetest=0;
@@ -66,22 +73,37 @@ void comboRandomizer1(void){
     choiceBlade=0;
     choiceLockChip=0;
     choiceAssistBlade=0;
+    choiceOverBlade=0;
     choiceRatchet=0;
     choiceBit=0;
     partsCheck1();
     if(contgen==1){
         return;
     }
+    for(int i=0;i<overBladecnt;i++){
+        if(overBladeCollectionClone1[i]==1){
+            canCXExtend=true;
+        }
+    }
     if(simpleratchettest==0){
         bladeCollectionClone1[bladeBxcnt+clockMiragenum]=0;
     }
     do{
-        choiceBlade=rand()%(bladecnt+mainBladecnt);
-    }while(bladeCollectionClone1[choiceBlade]==0);
+        choiceBlade=rand()%(bladecnt+mainBladecnt+uxExtendedcnt+metalBladecnt);
+        if(choiceBlade>=bladecnt+uxExtendedcnt+mainBladecnt){
+            CXIsExtend=true;
+        }
+        else{
+            CXIsExtend=false;
+        }
+    }while(bladeCollectionClone1[choiceBlade]==0||(CXIsExtend&&canCXExtend==false));
     str1=blade[choiceBlade];
-    if(choiceBlade<bladecnt){
+    if(choiceBlade<bladecnt+uxExtendedcnt){
         blade_final[0]='\n';
         sprintf(blade_final, "%s", blade[choiceBlade]);
+        if(choiceBlade>=bladecnt){
+            skipRatchet=true;
+        }
     }
     else{
         do{
@@ -90,18 +112,29 @@ void comboRandomizer1(void){
         do{
             choiceAssistBlade=rand()%assistBladecnt;
         }while(assistBladeCollectionClone1[choiceAssistBlade]==0);
-        blade_final[0]='\n';
-        sprintf(blade_final, "%s %s %s", lock_chip[choiceLockChip], blade[choiceBlade], assist_blade[choiceAssistBlade]);
+        if(CXIsExtend){
+            do{
+                choiceOverBlade=rand()%overBladecnt;
+            }while(overBladeCollectionClone1[choiceOverBlade]==0);
+            blade_final[0]='\n';
+            sprintf(blade_final, "%s %s %s%s", lock_chip[choiceLockChip], blade[choiceBlade], over_blade[choiceOverBlade], assist_blade[choiceAssistBlade]);
+        }
+        else{
+            blade_final[0]='\n';
+            sprintf(blade_final, "%s %s %s", lock_chip[choiceLockChip], blade[choiceBlade], assist_blade[choiceAssistBlade]);
+        }
     }
-    if(strcmp(blade[choiceBlade],simple_blade[0])==0){
-        do{
-            choiceRatchet=rand()%simpleRatchetcnt;
-        }while(simpleRatchetCollectionClone1[choiceRatchet]==0);
-    }
-    else{
-        do{
-            choiceRatchet=rand()%(ratchetcnt+ratchetIntegratedBitcnt);
-        }while(ratchetCollectionClone1[choiceRatchet]==0);
+    for(int i=0;i<simpleBladecnt;i++){
+        if(strcmp(blade[choiceBlade],simple_blade[i])==0){
+            do{
+                choiceRatchet=rand()%simpleRatchetcnt;
+            }while(simpleRatchetCollectionClone1[choiceRatchet]==0);
+        }
+        else if(!skipRatchet){
+            do{
+                choiceRatchet=rand()%(ratchetcnt+ratchetIntegratedBitcnt);
+            }while(ratchetCollectionClone1[choiceRatchet]==0);
+        }
     }
     if(choiceRatchet<simpleRatchetcnt||choiceRatchet>=(simpleRatchetcnt+ratchetIntegratedBitcnt)){
         do{
@@ -112,35 +145,44 @@ void comboRandomizer1(void){
     if(choiceLockChip<mlccnt){
         lockChipCollectionClone1[choiceLockChip]-=1;
     }
-    if(choiceBlade>=bladecnt){
+    if(CXIsExtend){
+        overBladeCollectionClone1[choiceOverBlade]-=1;
+    }
+    if(choiceBlade>=bladecnt+uxExtendedcnt){
         assistBladeCollectionClone1[choiceAssistBlade]-=1;
     }
-    ratchetCollectionClone1[choiceRatchet]-=1;
-    if(choiceRatchet<simpleRatchetcnt||choiceRatchet>=(simpleRatchetcnt+ratchetIntegratedBitcnt)){
-        bitCollectionClone1[choiceBit]-=1;
-        if(choiceBlade>=bladecnt){
-            combo_list_player_1[numOfDeck][0]='\n';
-            sprintf(combo_list_player_1[numOfDeck], "%s%s %s", blade_final, ratchet[choiceRatchet], bit[choiceBit]);
+    if(!skipRatchet){
+        ratchetCollectionClone1[choiceRatchet]-=1;
+        if(choiceRatchet<simpleRatchetcnt||choiceRatchet>=(simpleRatchetcnt+ratchetIntegratedBitcnt)){
+            bitCollectionClone1[choiceBit]-=1;
+            if(choiceBlade>=bladecnt+uxExtendedcnt){
+                combo_list_player_1[numOfDeck][0]='\n';
+                sprintf(combo_list_player_1[numOfDeck], "%s%s %s", blade_final, ratchet[choiceRatchet], bit[choiceBit]);
+            }
+            else{
+                combo_list_player_1[numOfDeck][0]='\n';
+                sprintf(combo_list_player_1[numOfDeck], "%s %s %s", blade_final, ratchet[choiceRatchet], bit[choiceBit]);
+            }
         }
         else{
-            combo_list_player_1[numOfDeck][0]='\n';
-            sprintf(combo_list_player_1[numOfDeck], "%s %s %s", blade_final, ratchet[choiceRatchet], bit[choiceBit]);
+            if(choiceBlade>=bladecnt+uxExtendedcnt){
+                combo_list_player_1[numOfDeck][0]='\n';
+                sprintf(combo_list_player_1[numOfDeck], "%s%s", blade_final, ratchet[choiceRatchet]);
+            }
+            else{
+                combo_list_player_1[numOfDeck][0]='\n';
+                sprintf(combo_list_player_1[numOfDeck], "%s %s", blade_final, ratchet[choiceRatchet]);
+            }
         }
     }
     else{
-        if(choiceBlade>=bladecnt){
-            combo_list_player_1[numOfDeck][0]='\n';
-            sprintf(combo_list_player_1[numOfDeck], "%s%s", blade_final, ratchet[choiceRatchet]);
-        }
-        else{
-            combo_list_player_1[numOfDeck][0]='\n';
-            sprintf(combo_list_player_1[numOfDeck], "%s %s", blade_final, ratchet[choiceRatchet]);
-        }
+        bitCollectionClone1[choiceBit]-=1;
+        sprintf(combo_list_player_1[numOfDeck], "%s %s", blade_final, bit[choiceBit]);
     }
     return;
 }
 void partGetter1(void){
-    for(int i=0;i<bladecnt;i++){
+    for(int i=0;i<bladecnt+uxExtendedcnt;i++){
         printf("Do you have the blade ");
         printf("%s", blade[i]);
         printf("? Y/N\n");
@@ -154,8 +196,22 @@ void partGetter1(void){
             bladeCollectionClone1[i]=0;
         }
     }
-    for(int i=bladecnt;i<(bladecnt+mainBladecnt);i++){
+    for(int i=bladecnt+uxExtendedcnt;i<(bladecnt+uxExtendedcnt+mainBladecnt);i++){
         printf("Do you have the main blade ");
+        printf("%s", blade[i]);
+        printf("? Y/N \n");
+        scanf(" %c", &decision);
+        if(decision=='Y'){
+            bladeCollection1[i]=1;
+            bladeCollectionClone1[i]=1;
+        }
+        else if(decision=='N'){
+            bladeCollection1[i]=0;
+            bladeCollectionClone1[i]=0;
+        }
+    }
+    for(int i=bladecnt+uxExtendedcnt+mainBladecnt;i<bladecnt+uxExtendedcnt+mainBladecnt+metalBladecnt;i++){
+        printf("Do you have the metal blade ");
         printf("%s", blade[i]);
         printf("? Y/N \n");
         scanf(" %c", &decision);
@@ -180,6 +236,20 @@ void partGetter1(void){
         else if(decision=='N'){
             assistBladeCollection1[i]=0;
             assistBladeCollectionClone1[i]=0;
+        }
+    }
+    for(int i=0;i<overBladecnt;i++){
+        printf("Do you have the over blade ");
+        printf("%s", over_blade[i]);
+        printf("? Y/N \n");
+        scanf(" %c", &decision);
+        if(decision=='Y'){
+            overBladeCollection1[i]=1;
+            overBladeCollectionClone1[i]=1;
+        }
+        else if(decision=='N'){
+            overBladeCollection1[i]=0;
+            overBladeCollectionClone1[i]=0;
         }
     }
     for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
@@ -234,6 +304,9 @@ void partGetter1(void){
     }
 }
 void comboRandomizer2(void){
+    bool skipRatchet=false;
+    bool canCXExtend=false;
+    bool CXIsExtend;
     nocxtest=0;
     nononcxtest=0;
     bladetest=0;
@@ -242,22 +315,37 @@ void comboRandomizer2(void){
     choiceBlade=0;
     choiceLockChip=0;
     choiceAssistBlade=0;
+    choiceOverBlade=0;
     choiceRatchet=0;
     choiceBit=0;
     partsCheck2();
     if(contgen==1){
         return;
     }
+    for(int i=0;i<overBladecnt;i++){
+        if(overBladeCollectionClone2[i]==1){
+            canCXExtend=true;
+        }
+    }
     if(simpleratchettest==0){
         bladeCollectionClone2[bladeBxcnt+clockMiragenum]=0;
     }
     do{
-        choiceBlade=rand()%(bladecnt+mainBladecnt);
-    }while(bladeCollectionClone2[choiceBlade]==0);
+        choiceBlade=rand()%(bladecnt+mainBladecnt+uxExtendedcnt+metalBladecnt);
+        if(choiceBlade>=bladecnt+uxExtendedcnt+mainBladecnt){
+            CXIsExtend=true;
+        }
+        else{
+            CXIsExtend=false;
+        }
+    }while(bladeCollectionClone2[choiceBlade]==0||(CXIsExtend&&canCXExtend==false));
     str1=blade[choiceBlade];
-    if(choiceBlade<bladecnt){
+    if(choiceBlade<bladecnt+uxExtendedcnt){
         blade_final[0]='\n';
         sprintf(blade_final, "%s", blade[choiceBlade]);
+        if(choiceBlade>=bladecnt){
+            skipRatchet=true;
+        }
     }
     else{
         do{
@@ -266,18 +354,29 @@ void comboRandomizer2(void){
         do{
             choiceAssistBlade=rand()%assistBladecnt;
         }while(assistBladeCollectionClone2[choiceAssistBlade]==0);
-        blade_final[0]='\n';
-        sprintf(blade_final, "%s %s %s", lock_chip[choiceLockChip], blade[choiceBlade], assist_blade[choiceAssistBlade]);
+        if(CXIsExtend){
+            do{
+                choiceOverBlade=rand()%overBladecnt;
+            }while(overBladeCollectionClone2[choiceOverBlade]==0);
+            blade_final[0]='\n';
+            sprintf(blade_final, "%s %s %s%s", lock_chip[choiceLockChip], blade[choiceBlade], over_blade[choiceOverBlade], assist_blade[choiceAssistBlade]);
+        }
+        else{
+            blade_final[0]='\n';
+            sprintf(blade_final, "%s %s %s", lock_chip[choiceLockChip], blade[choiceBlade], assist_blade[choiceAssistBlade]);
+        }
     }
-    if(strcmp(blade[choiceBlade],simple_blade[0])==0){
-        do{
-            choiceRatchet=rand()%simpleRatchetcnt;
-        }while(simpleRatchetCollectionClone2[choiceRatchet]==0);
-    }
-    else{
-        do{
-            choiceRatchet=rand()%(ratchetcnt+ratchetIntegratedBitcnt);
-        }while(ratchetCollectionClone2[choiceRatchet]==0);
+    for(int i=0;i<simpleBladecnt;i++){
+        if(strcmp(blade[choiceBlade],simple_blade[i])==0){
+            do{
+                choiceRatchet=rand()%simpleRatchetcnt;
+            }while(simpleRatchetCollectionClone2[choiceRatchet]==0);
+        }
+        else if(!skipRatchet){
+            do{
+                choiceRatchet=rand()%(ratchetcnt+ratchetIntegratedBitcnt);
+            }while(ratchetCollectionClone2[choiceRatchet]==0);
+        }
     }
     if(choiceRatchet<simpleRatchetcnt||choiceRatchet>=(simpleRatchetcnt+ratchetIntegratedBitcnt)){
         do{
@@ -288,35 +387,44 @@ void comboRandomizer2(void){
     if(choiceLockChip<mlccnt){
         lockChipCollectionClone2[choiceLockChip]-=1;
     }
-    if(choiceBlade>=bladecnt){
+    if(CXIsExtend){
+        overBladeCollectionClone2[choiceOverBlade]-=1;
+    }
+    if(choiceBlade>=bladecnt+uxExtendedcnt){
         assistBladeCollectionClone2[choiceAssistBlade]-=1;
     }
-    ratchetCollectionClone2[choiceRatchet]-=1;
-    if(choiceRatchet<simpleRatchetcnt||choiceRatchet>=(simpleRatchetcnt+ratchetIntegratedBitcnt)){
-        bitCollectionClone2[choiceBit]-=1;
-        if(choiceBlade>=bladecnt){
-            combo_list_player_2[numOfDeck][0]='\n';
-            sprintf(combo_list_player_2[numOfDeck], "%s%s %s", blade_final, ratchet[choiceRatchet], bit[choiceBit]);
+    if(!skipRatchet){
+        ratchetCollectionClone2[choiceRatchet]-=1;
+        if(choiceRatchet<simpleRatchetcnt||choiceRatchet>=(simpleRatchetcnt+ratchetIntegratedBitcnt)){
+            bitCollectionClone2[choiceBit]-=1;
+            if(choiceBlade>=bladecnt+uxExtendedcnt){
+                combo_list_player_2[numOfDeck][0]='\n';
+                sprintf(combo_list_player_2[numOfDeck], "%s%s %s", blade_final, ratchet[choiceRatchet], bit[choiceBit]);
+            }
+            else{
+                combo_list_player_2[numOfDeck][0]='\n';
+                sprintf(combo_list_player_2[numOfDeck], "%s %s %s", blade_final, ratchet[choiceRatchet], bit[choiceBit]);
+            }
         }
         else{
-            combo_list_player_2[numOfDeck][0]='\n';
-            sprintf(combo_list_player_2[numOfDeck], "%s %s %s", blade_final, ratchet[choiceRatchet], bit[choiceBit]);
+            if(choiceBlade>=bladecnt+uxExtendedcnt){
+                combo_list_player_2[numOfDeck][0]='\n';
+                sprintf(combo_list_player_2[numOfDeck], "%s%s", blade_final, ratchet[choiceRatchet]);
+            }
+            else{
+                combo_list_player_2[numOfDeck][0]='\n';
+                sprintf(combo_list_player_2[numOfDeck], "%s %s", blade_final, ratchet[choiceRatchet]);
+            }
         }
     }
     else{
-        if(choiceBlade>=bladecnt){
-            combo_list_player_2[numOfDeck][0]='\n';
-            sprintf(combo_list_player_2[numOfDeck], "%s%s", blade_final, ratchet[choiceRatchet]);
-        }
-        else{
-            combo_list_player_2[numOfDeck][0]='\n';
-            sprintf(combo_list_player_2[numOfDeck], "%s %s", blade_final, ratchet[choiceRatchet]);
-        }
+        bitCollectionClone2[choiceBit]-=1;
+        sprintf(combo_list_player_2[numOfDeck], "%s %s", blade_final, bit[choiceBit]);
     }
     return;
 }
 void partGetter2(void){
-    for(int i=0;i<bladecnt;i++){
+    for(int i=0;i<bladecnt+uxExtendedcnt;i++){
         printf("Do you have the blade ");
         printf("%s", blade[i]);
         printf("? Y/N\n");
@@ -330,8 +438,22 @@ void partGetter2(void){
             bladeCollectionClone2[i]=0;
         }
     }
-    for(int i=bladecnt;i<(bladecnt+mainBladecnt);i++){
+    for(int i=bladecnt+uxExtendedcnt;i<(bladecnt+uxExtendedcnt+mainBladecnt);i++){
         printf("Do you have the main blade ");
+        printf("%s", blade[i]);
+        printf("? Y/N \n");
+        scanf(" %c", &decision);
+        if(decision=='Y'){
+            bladeCollection2[i]=1;
+            bladeCollectionClone2[i]=1;
+        }
+        else if(decision=='N'){
+            bladeCollection2[i]=0;
+            bladeCollectionClone2[i]=0;
+        }
+    }
+    for(int i=bladecnt+uxExtendedcnt+mainBladecnt;i<bladecnt+uxExtendedcnt+mainBladecnt+metalBladecnt;i++){
+        printf("Do you have the metal blade ");
         printf("%s", blade[i]);
         printf("? Y/N \n");
         scanf(" %c", &decision);
@@ -356,6 +478,20 @@ void partGetter2(void){
         else if(decision=='N'){
             assistBladeCollection2[i]=0;
             assistBladeCollectionClone2[i]=0;
+        }
+    }
+    for(int i=0;i<overBladecnt;i++){
+        printf("Do you have the over blade ");
+        printf("%s", over_blade[i]);
+        printf("? Y/N \n");
+        scanf(" %c", &decision);
+        if(decision=='Y'){
+            overBladeCollection2[i]=1;
+            overBladeCollectionClone2[i]=1;
+        }
+        else if(decision=='N'){
+            overBladeCollection2[i]=0;
+            overBladeCollectionClone2[i]=0;
         }
     }
     for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
@@ -410,41 +546,47 @@ void partGetter2(void){
     }
 }
 void cloneReset(void){
-    for(int i=0;i<(bladecnt+mainBladecnt);i++){
+    for(int i=0;i<(bladecnt+mainBladecnt+uxExtendedcnt+metalBladecnt);i++){
         bladeCollectionClone1[i]=bladeCollection1[i];
-    }
-    for(int i=0;i<assistBladecnt;i++){
-        assistBladeCollectionClone1[i]=assistBladeCollection1[i];
-    }
-    for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
-        ratchetCollectionClone1[i]=ratchetCollection1[i];
-    }
-    for(int i=0;i<bitcnt;i++){
-        bitCollectionClone1[i]=bitCollection1[i];
-    }
-    for(int i=0;i<(mlccnt+plccnt);i++){
-        lockChipCollectionClone1[i]=lockChipCollection1[i];
-    }
-    for(int i=0;i<(bladecnt+mainBladecnt);i++){
         bladeCollectionClone2[i]=bladeCollection2[i];
     }
     for(int i=0;i<assistBladecnt;i++){
+        assistBladeCollectionClone1[i]=assistBladeCollection1[i];
         assistBladeCollectionClone2[i]=assistBladeCollection2[i];
     }
+    for(int i=0;i<overBladecnt;i++){
+        overBladeCollectionClone1[i]=overBladeCollection1[i];
+        overBladeCollectionClone2[i]=overBladeCollection2[i];
+    }
     for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
+        ratchetCollectionClone1[i]=ratchetCollection1[i];
         ratchetCollectionClone2[i]=ratchetCollection2[i];
     }
     for(int i=0;i<bitcnt;i++){
+        bitCollectionClone1[i]=bitCollection1[i];
         bitCollectionClone2[i]=bitCollection2[i];
     }
     for(int i=0;i<(mlccnt+plccnt);i++){
         lockChipCollectionClone2[i]=lockChipCollection2[i];
+        lockChipCollectionClone1[i]=lockChipCollection1[i];
     }
     for(int i=0;i<simpleRatchetcnt;i++){
         simpleRatchetCollectionClone1[i]=simpleRatchetCollection1[i];
+        simpleRatchetCollectionClone2[i]=simpleRatchetCollection2[i];
+    }
+    for(int i=0;i<(bladecnt+mainBladecnt);i++){
+    }
+    for(int i=0;i<assistBladecnt;i++){
+    }
+    for(int i=0;i<overBladecnt;i++){
+    }
+    for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
+    }
+    for(int i=0;i<bitcnt;i++){
+    }
+    for(int i=0;i<(mlccnt+plccnt);i++){
     }
     for(int i=0;i<simpleRatchetcnt;i++){
-        simpleRatchetCollectionClone2[i]=simpleRatchetCollection2[i];
     }
 }
 void userSelect1(void){
@@ -509,7 +651,7 @@ void partsCheck1(void){
             simpleratchettest=1;
         }
     }
-    for(int i=0;i<(bladecnt+mainBladecnt);i++){
+    for(int i=0;i<(bladecnt+mainBladecnt+uxExtendedcnt+metalBladecnt);i++){
         if(bladeCollectionClone1[i]==1){
             bladetest=1;
         }
@@ -591,7 +733,7 @@ void partsCheck2(void){
             simpleratchettest=1;
         }
     }
-    for(int i=0;i<(bladecnt+mainBladecnt);i++){
+    for(int i=0;i<(bladecnt+mainBladecnt+uxExtendedcnt+metalBladecnt);i++){
         if(bladeCollectionClone2[i]==1){
             bladetest=1;
         }
@@ -627,7 +769,7 @@ int playerCount(void){
     return playercnt;
 }
 void userChoiceAlign1(struct User user_choice){
-    for(int i=0;i<(bladecnt+mainBladecnt);i++){
+    for(int i=0;i<(bladecnt+mainBladecnt+uxExtendedcnt+metalBladecnt);i++){
         for(int j=0;j<user_choice.blade_cnt;j++){
             if(strcmp(user_choice.blade[j],blade[i])==0){
                 bladeCollection1[i]=1;
@@ -673,9 +815,17 @@ void userChoiceAlign1(struct User user_choice){
             }
         }
     }
+    for(int i=0;i<(overBladecnt);i++){
+        for(int j=0;j<(user_choice.over_blade_cnt);j++){
+            if(strcmp(user_choice.over_blade[j],over_blade[i])==0){
+                overBladeCollection1[i]=1;
+                overBladeCollectionClone1[i]=1;
+            }
+        }
+    }
 }
 void userChoiceAlign2(struct User user_choice){
-    for(int i=0;i<(bladecnt+mainBladecnt);i++){
+    for(int i=0;i<(bladecnt+mainBladecnt+uxExtendedcnt+metalBladecnt);i++){
         for(int j=0;j<user_choice.blade_cnt;j++){
             if(strcmp(user_choice.blade[j],blade[i])==0){
                 bladeCollection2[i]=1;
@@ -718,6 +868,14 @@ void userChoiceAlign2(struct User user_choice){
             if(strcmp(user_choice.bit[j],bit[i])==0){
                 bitCollection2[i]=1;
                 bitCollectionClone2[i]=1;
+            }
+        }
+    }
+    for(int i=0;i<(overBladecnt);i++){
+        for(int j=0;j<(user_choice.over_blade_cnt);j++){
+            if(strcmp(user_choice.over_blade[j],over_blade[i])==0){
+                overBladeCollection2[i]=1;
+                overBladeCollectionClone2[i]=1;
             }
         }
     }
