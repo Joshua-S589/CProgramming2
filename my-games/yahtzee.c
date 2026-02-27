@@ -123,6 +123,23 @@ int main(void){
         usleep(500000);
         if(newGameCheck=='Y'){
             printf("Good luck on your next game!\n\n\n\n");
+            acesScoreO=1;
+            twosScoreO=1;
+            threesScoreO=1;
+            foursScoreO=1;
+            fivesScoreO=1;
+            sixesScoreO=1;
+            threeOfAKindScoreO=1;
+            fourOfAKindScoreO=1;
+            smallStraightScoreO=1;
+            largeStraightScoreO=1;
+            fullHouseScoreO=1;
+            chanceScoreO=1;
+            yahtzeeScoreO=1;
+            yahtzeeCheck=0;
+            grandTotalScore=0;
+            totalLowerScore=0;
+            totalUpperScore=0;
             usleep(1000000);
         }
         else if(newGameCheck=='N'){
@@ -146,6 +163,9 @@ int diceHold(void){
     if(diea=='R'){
         dieRoll6(&die1);
     }
+    if(diee=='R'){
+        dieRoll6(&die5);
+    }
     if(dieb=='R'){
         dieRoll6(&die2);
     }
@@ -154,9 +174,6 @@ int diceHold(void){
     }
     if(died=='R'){
         dieRoll6(&die4);
-    }
-    if(diee=='R'){
-        dieRoll6(&die5);
     }
     usleep(500000);
     printf("Your next dice rolls:\n[%d] [%d] [%d] [%d] [%d]\n", die1, die2, die3, die4, die5);
@@ -302,31 +319,31 @@ int score(void){
     }
     if(threeOfAKindScoreO==1){
         printf("3 of a Kind (T)");
-        if(fourOfAKindScoreO==1||fullHouseScoreO==1||smallStraightScoreO==1||largeStraightScoreO==1||yahtzeeScoreO==1||chanceScoreO==1){
+        if(fourOfAKindScoreO==1||fullHouseScoreO==1||smallStraightScoreO==1||largeStraightScoreO==1||yahtzeeScoreO==1||chanceScoreO==1||yahtzeeCheck==1){
             printf(", ");
         }
     }
     if(fourOfAKindScoreO==1){
         printf("4 of a Kind (F)");
-        if(fullHouseScoreO==1||smallStraightScoreO==1||largeStraightScoreO==1||yahtzeeScoreO==1||chanceScoreO==1){
+        if(fullHouseScoreO==1||smallStraightScoreO==1||largeStraightScoreO==1||yahtzeeScoreO==1||chanceScoreO==1||yahtzeeCheck==1){
             printf(", ");
         }
     }
     if(fullHouseScoreO==1){
         printf("Full House (H)");
-        if(smallStraightScoreO==1||largeStraightScoreO==1||yahtzeeScoreO==1||chanceScoreO==1){
+        if(smallStraightScoreO==1||largeStraightScoreO==1||yahtzeeScoreO==1||chanceScoreO==1||yahtzeeCheck==1){
             printf(", ");
         }
     }
     if(smallStraightScoreO==1){
         printf("Small Straight (S)");
-        if(largeStraightScoreO==1||yahtzeeScoreO==1||chanceScoreO==1){
+        if(largeStraightScoreO==1||yahtzeeScoreO==1||chanceScoreO==1||yahtzeeCheck==1){
             printf(", ");
         }
     }
     if(largeStraightScoreO==1){
         printf("Large Straight (L)");
-        if(yahtzeeScoreO==1||chanceScoreO==1){
+        if(yahtzeeScoreO==1||chanceScoreO==1||yahtzeeCheck==1){
             printf(", ");
         }
     }
