@@ -1,3 +1,5 @@
+#ifndef DECK_RAN_H
+#define DECK_RAN_H
 void cloneReset(void);
 void comboRandomizer1(void);
 void comboRandomizer2(void);
@@ -30,6 +32,7 @@ int choiceRatchetIntegratedBit;
 int contgen;
 int deckSize=0;
 int finalDeckSize;
+int needratchettest=0;
 int nocxtest=0;
 int nononcxtest=0;
 int nomlc;
@@ -45,3 +48,4 @@ char userDecision;
 const char* str1;
 const char* str2;
 const char* str3;
+#endif

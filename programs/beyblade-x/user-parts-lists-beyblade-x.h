@@ -1,3 +1,5 @@
+#ifndef USER_PARTS_LIST_BEYBLADE_X_H
+#define USER_PARTS_LIST_BEYBLADE_X_H
 typedef struct User{
     int blade_cnt;
     int assist_blade_cnt;
@@ -65,5 +67,15 @@ struct User Ben={
     .bit={"K", "F", "L", "T", "RA", "B", "P", "GF", "S", "Z", "N", "HN", "GP", "FB", "DB", "HT", "LF"},
     .simple_ratchet={"M-85", "4-55"}
 };
+struct User Expanded={
+    .blade_cnt=9, .lock_chip_cnt=3, .assist_blade_cnt=3, .over_blade_cnt=3, .ratchet_cnt=2, .bit_cnt=4,
+    .blade={"Aether Ring", "Dran Strike", "Aegis Rampart", "Bison Burrow", "Bullet Griffon", "Shinobi Cutter", "Blitz", "Fortress", "Rage"},
+    .lock_chip={"Bahamut", "Knight", "Ragna"},
+    .assist_blade={"E", "K", "V"},
+    .over_blade={"B", "F", "G"},
+    .ratchet={"1-50", "8-70"},
+    .bit={"I", "FF", "DS", "Y"}
+};
 int testnum=1;
 char user_test[1000][50]={"Clock Mirage"};
+#endif

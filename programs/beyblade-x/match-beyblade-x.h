@@ -1,3 +1,5 @@
+#ifndef MATCH_BEYBLADE_X_H
+#define MATCH_BEYBLADE_X_H
 #include <stdio.h>
 int avbCombo1[1000];
 int avbCombo2[1000];
@@ -7,3 +9,4 @@ int greaterPoint;
 int pointGoal;
 int score1;
 int score2;
+#endif

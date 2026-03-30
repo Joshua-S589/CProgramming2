@@ -1,5 +1,5 @@
-#ifndef USERSTRUCT_H
-#define USERSTRUCT_H
+#ifndef USERSTRUCTRE_H
+#define USERSTRUCTRE_H
 typedef struct User{
     int blade_cnt;
     int assist_blade_cnt;
@@ -14,4 +14,4 @@ typedef struct User{
     char lock_chip[100][50];
     char simple_ratchet[100][50];
 }User;
-#endif USERSTRUCT_H
+#endif

@@ -1,3 +1,5 @@
+#ifndef DECK_RANDOMIZER_BEYBLADE_X_H
+#define DECK_RANDOMIZER_BEYBLADE_X_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -604,7 +606,7 @@ void userSelect1(void){
     }
     if(userDecision=='Y'){
         printf("Which user would you like to load?\n");
-        printf("BX parts (1), UX parts (2), CX parts(3), Snek Blades(4), Yako(5), Ben(6)\n");
+        printf("BX parts (1), UX parts (2), CX parts(3), Expanded Lines(4), Snek Blades(5), Yako(6), Ben(7)\n");
         scanf(" %d", &userChoice);
         while(userChoice<1||userChoice>6){
             puts("Sorry, that is an invalid response, please reenter");
@@ -622,12 +624,15 @@ void userSelect1(void){
             userChoiceAlign1(cx);
         }
         if(userChoice==4){
-            userChoiceAlign1(Snek_blades);
+            userChoiceAlign1(Expanded);
         }
         if(userChoice==5){
-            userChoiceAlign1(Yako);
+            userChoiceAlign1(Snek_blades);
         }
         if(userChoice==6){
+            userChoiceAlign1(Yako);
+        }
+        if(userChoice==7){
             userChoiceAlign1(Ben);
         }
     }
@@ -646,20 +651,37 @@ void userSelect1(void){
 }
 void partsCheck1(void){
     simpleratchettest=0;
-    for(int i=0;i<simpleRatchetcnt;i++){
-        if(ratchetCollectionClone1[i]==1){
-            simpleratchettest=1;
-        }
-    }
-    for(int i=0;i<(bladecnt+mainBladecnt+uxExtendedcnt+metalBladecnt);i++){
+    // for(int i=0;i<simpleRatchetcnt;i++){
+    //     if(ratchetCollectionClone1[i]==1){
+    //         simpleratchettest=1;
+    //     }
+    // }
+    // for(int i=0;i<(bladecnt+mainBladecnt+uxExtendedcnt+metalBladecnt);i++){
+    //     if(bladeCollectionClone1[i]==1){
+    //         bladetest=1;
+    //     }
+    // }
+    // for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
+    //     if(ratchetCollectionClone1[i]==1){
+    //         ratchettest=1;
+    //     }
+    // }
+    // for(int i=0;i<bitcnt;i++){
+    //     if(bitCollectionClone1[i]==1){
+    //         bittest=1;
+    //     }
+    // }
+    // if(bladetest==0||ratchettest==0||bittest==0){
+    //     printf("Sorry, there are not enough remaining parts to generate a combo\n");
+    //     contgen=1;
+    //     return;
+    // }
+    // else{
+    //     contgen=0;
+    // }
+    for(int i=0;i<(bladecnt+uxExtendedcnt+mainBladecnt+metalBladecnt);i++){
         if(bladeCollectionClone1[i]==1){
             bladetest=1;
-        }
-    }
-    for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
-        if(ratchetCollectionClone1[i]==1){
-            ratchettest=1;
-
         }
     }
     for(int i=0;i<bitcnt;i++){
@@ -667,13 +689,35 @@ void partsCheck1(void){
             bittest=1;
         }
     }
-    if(bladetest==0||ratchettest==0||bittest==0){
+    if(bladetest==0||bittest==0){
         printf("Sorry, there are not enough remaining parts to generate a combo\n");
         contgen=1;
         return;
     }
     else{
-        contgen=0;
+        for(int i=0;i<bladecnt;i++){
+            if(bladeCollectionClone1[i]==1){
+                needratchettest=1;
+            }
+        }
+        for(int i=(bladecnt+uxExtendedcnt);i<(bladecnt+uxExtendedcnt+mainBladecnt+metalBladecnt);i++){
+            if(bladeCollectionClone1[i]==1){
+                needratchettest=1;
+            }
+        }
+        for(int i=0;i<(ratchetIntegratedBitcnt+ratchetcnt);i++){
+            if(ratchetCollectionClone1[i]==1){
+                ratchettest=1;
+                if(i<simpleRatchetcnt){
+                    simpleratchettest=1;
+                }
+            }
+        }
+        if(needratchettest==1&&ratchettest==0){
+            printf("Sorry, there are not enough remaining parts to generate a combo\n");
+            contgen=1;
+            return;
+        }
     }
 }
 void userSelect2(void){
@@ -880,3 +924,4 @@ void userChoiceAlign2(struct User user_choice){
         }
     }
 }
+#endif
