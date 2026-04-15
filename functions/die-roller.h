@@ -1,3 +1,5 @@
+#ifndef DIE_ROLLER_H
+#define DIE_ROLLER_H
 #include <stdlib.h>
 #include <time.h>
 void dieRollN(int *die, int a);
@@ -28,3 +30,4 @@ void dieRoll20(int *die){
 void dieRollN(int *die, int a){
     *die=(rand()%a)+1;
 }
+#endif

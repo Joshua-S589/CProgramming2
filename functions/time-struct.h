@@ -1,3 +1,5 @@
+#ifndef TIME_STRUCT_H
+#define TIME_STRUCT_H
 #include <stdlib.h>
 #include <time.h>
 typedef struct{int hours; int minutes; int seconds;} Time; Time t;
@@ -9,3 +11,4 @@ void makeTime(int a){
     t.hours=t.minutes/60;
     t.minutes-=t.hours*60;
 }
+#endif
