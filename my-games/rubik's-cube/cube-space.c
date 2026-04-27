@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
-#include "/workspaces/CProgramming2/functions/time-struct.h"
+#include "../../functions/time-struct.h"
 #include "two-x-two.h"
 #include "three-x-three.h"
 #include "four-x-four.h"
@@ -25,11 +25,11 @@ void main(void){
     else if(cubeChoice=='3'){
         threeXthree();
     }
-    // else if(cubeChoice=='4'){
-    //     4x4();
-    // }
-    // else if(cubeChoice=='5'){
-    //     5x5();
-    // }
+    else if(cubeChoice=='4'){
+        fourXfour();
+    }
+    else if(cubeChoice=='5'){
+        fiveXfive();
+    }
     return;
 }

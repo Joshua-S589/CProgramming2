@@ -357,39 +357,40 @@ void scramble_3x3(void){
     srand(time(0));
     for(int i=0;i<scrambleSize_3x3;i++){
         rngside_3x3=rand()%6;
+        rngdir_3x3=(rand()%3)+1;
         if(rngside_3x3==0){
             sideChoice_3x3='U';
-            for(int j=1;j<(rand()%4+1);j++){
+            for(int j=1;j<(rngdir_3x3);j++){
                 rotationsingle_3x3(&sideChoice_3x3);
             }
         }
         else if(rngside_3x3==1){
             sideChoice_3x3='R';
-            for(int j=1;j<(rand()%4+1);j++){
+            for(int j=1;j<(rngdir_3x3);j++){
                 rotationsingle_3x3(&sideChoice_3x3);
             }
         }
         else if(rngside_3x3==2){
             sideChoice_3x3='B';
-            for(int j=1;j<(rand()%4+1);j++){
+            for(int j=1;j<(rngdir_3x3);j++){
                 rotationsingle_3x3(&sideChoice_3x3);
             }
         }
         else if(rngside_3x3==3){
             sideChoice_3x3='L';
-            for(int j=1;j<(rand()%4+1);j++){
+            for(int j=1;j<(rngdir_3x3);j++){
                 rotationsingle_3x3(&sideChoice_3x3);
             }
         }
         else if(rngside_3x3==4){
             sideChoice_3x3='D';
-            for(int j=1;j<(rand()%4+1);j++){
+            for(int j=1;j<(rngdir_3x3);j++){
                 rotationsingle_3x3(&sideChoice_3x3);
             }
         }
         else if(rngside_3x3==5){
             sideChoice_3x3='F';
-            for(int j=1;j<(rand()%4+1);j++){
+            for(int j=1;j<(rngdir_3x3);j++){
                 rotationsingle_3x3(&sideChoice_3x3);
             }
         }
