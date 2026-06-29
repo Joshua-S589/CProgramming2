@@ -17,13 +17,14 @@ typedef struct User{
     char simple_ratchet[100][50];
 }User;
 struct User Snek_blades={
-    .blade_cnt=42, .assist_blade_cnt=8, .ratchet_cnt=21, .lock_chip_cnt=9, .bit_cnt=35, .simple_ratchet_cnt=1,
-    .blade={"Eclipse", "Scorpio Spear", "Cobalt Dragoon", "Meteor Dragoon", "Crimson Garuda", "Dran Sword", "Knight Shield", "Leon Claw", "Phoenix Wing", "Samurai Calibur", "Shark Edge", "Sphinx Cowl", "Tyranno Beat", "Unicorn Sting", "Weiss Tiger", "Whale Wave", "Wizard Arrow", "Dran Buster", "Hells Hammer", "Impact Drake", "Leon Crest", "Samurai Saber", "Silver Wolf", "Wizard Rod",  "Lightning L-Drago", "Croc Crunch", "Gill Shark", "Knife Shinobi", "Savvage Bear", "Steel Samurai", "Talon Ptera", "Arc", "Blast", "Brave", "Brush", "Dark", "Flame", "Reaper"},
-    .assist_blade={"A", "B", "D", "J", "R", "S", "T", "W"},
-    .ratchet={"Tr", "0-80", "1-60", "1-80", "2-60", "2-70", "3-60", "3-70", "3-80", "4-55", "4-60", "4-70", "4-80", "5-60", "5-70", "5-80", "6-60", "6-70", "6-80", "7-60", "9-60"},
-    .bit={"TK", "Z", "A", "B", "J", "C", "DB", "E", "F", "FB", "GB", "GF", "GN", "GP", "H", "HN", "K", "L", "LF", "LO", "LR", "M", "MN", "N", "O", "P", "Q", "R", "S", "T", "TP", "U", "V", "W", "WB"},
-    .lock_chip={"Wolf", "Sol", "Cerberus", "Dran", "Fox", "Hells", "Pegasus", "Perseus", "Wizard"},
-    .simple_ratchet={"4-55"}
+    .blade_cnt=47, .assist_blade_cnt=12, .over_blade_cnt=3, .ratchet_cnt=28, .lock_chip_cnt=12, .bit_cnt=39, .simple_ratchet_cnt=3,
+    .blade={"Clock Mirage", "Fortress", "Blitz", "Rage", "Tricera Press", "Eclipse", "Scorpio Spear", "Cobalt Dragoon", "Meteor Dragoon", "Crimson Garuda", "Dran Sword", "Knight Shield", "Leon Claw", "Phoenix Wing", "Samurai Calibur", "Shark Edge", "Sphinx Cowl", "Tyranno Beat", "Unicorn Sting", "Weiss Tiger", "Whale Wave", "Wizard Arrow", "Dran Buster", "Hells Hammer", "Impact Drake", "Leon Crest", "Samurai Saber", "Silver Wolf", "Wizard Rod",  "Lightning L-Drago", "Croc Crunch", "Gill Shark", "Knife Shinobi", "Savvage Bear", "Steel Samurai", "Talon Ptera", "Arc", "Blast", "Brave", "Brush", "Dark", "Flame", "Reaper"},
+    .assist_blade={"A", "B", "C", "D", "E", "J", "K", "R", "S", "T", "V", "W"},
+    .over_blade={"B", "F", "G"},
+    .ratchet={"Tr","0-60", "0-70", "0-80", "1-50", "1-60", "1-80", "2-60", "2-70", "3-60", "3-70", "3-80", "4-55", "4-60", "4-70", "4-80", "5-60", "5-70", "5-80", "M-85", "6-60", "6-70", "6-80", "7-60", "8-70", "9-60", "9-65", "9-70"},
+    .bit={"A", "B", "BS", "C", "DB", "E", "F", "FB", "GB", "GF", "GN", "GP", "H", "HN", "I", "J", "K", "L", "LF", "LO", "LR", "M", "MN", "N", "O", "P", "Q", "R", "S", "T", "TK", "TP", "U", "UN", "V", "W", "WB", "Y", "Z"},
+    .lock_chip={"Wolf", "Sol", "Cerberus", "Dran", "Fox", "Hells", "Pegasus", "Perseus", "Wizard", "Ragna", "Knight", "Bahamut"},
+    .simple_ratchet={"4-55", "9-65", "M-85"}
 };
 struct User bx={
     .blade_cnt=72, .assist_blade_cnt=0, .ratchet_cnt=15, .lock_chip_cnt=0, .bit_cnt=22, .simple_ratchet_cnt=1,
