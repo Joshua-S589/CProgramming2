@@ -17,25 +17,26 @@ char blueCheck_3x3[3][3]={{'B','B','B'},{'B','B','B'},{'B','B','B'}};
 char yellowCheck_3x3[3][3]={{'Y','Y','Y'},{'Y','Y','Y'},{'Y','Y','Y'}};
 char orangeCheck_3x3[3][3]={{'O','O','O'},{'O','O','O'},{'O','O','O'}};
 char greenCheck_3x3[3][3]={{'G','G','G'},{'G','G','G'},{'G','G','G'}};
-void scramble_3x3(void);
-int startTime_3x3;
-int endTime_3x3;
-int totalTime_3x3;
-int recordTime_3x3;
-int moveCnt_3x3=0;
-int rngside_3x3;
-int rngdir_3x3;
-bool sideCheck_3x3(char face1_3x3[3][3], char face2_3x3[3][3]);
-int test_3x3;
-char storage_3x3;
+void printCube_3x3(void);
+void printRules_3x3(void);
 void rotation_3x3(void);
 void rotationsingle_3x3(char *side_3x3);
-char sideChoice_3x3;
+void scramble_3x3(void);
+bool sideCheck_3x3(char face1_3x3[3][3], char face2_3x3[3][3]);
+char axialrotate;
 int dirAmt_3x3;
-void printRules_3x3(void);
-void printCube_3x3(void);
+int endTime_3x3;
+int moveCnt_3x3=0;
+int recordTime_3x3;
+int rngdir_3x3;
+int rngside_3x3;
 char ruleChoice_3x3;
+char sideChoice_3x3;
 char solveChoice_3x3;
+int startTime_3x3;
+char storage_3x3;
+int test_3x3;
+int totalTime_3x3;
 void threeXthree(void){
     printRules_3x3();
     printf("Would you like to attempt to solve the cube (S), or to simply mess around with it (M)?");
@@ -75,12 +76,12 @@ void threeXthree(void){
         }
     }
     else if (solveChoice_3x3=='M'){
-        printf("When you wish to finish, type 'E'\n");
+        printf("When you wish to finish, type 'N'\n");
         printCube_3x3();
         printf("\n");
         while(true){
             rotation_3x3();
-            if(sideChoice_3x3=='E'){
+            if(sideChoice_3x3=='N'){
                 break;
             }
             printf("\n");
@@ -110,11 +111,11 @@ void printRules_3x3(void){
 }
 void rotation_3x3(void){
     if(solveChoice_3x3=='S'){
-        printf("Which side would you like to rotate? (U/D/F/B/R/L)  ");
+        printf("Which side would you like to rotate? (U/D/F/B/R/L/M/E/S/X/Y/Z)  ");
         scanf(" %c", &sideChoice_3x3);
-        while(sideChoice_3x3!='U'&&sideChoice_3x3!='D'&&sideChoice_3x3!='F'&&sideChoice_3x3!='B'&&sideChoice_3x3!='R'&&sideChoice_3x3!='L'){
+        while(sideChoice_3x3!='U'&&sideChoice_3x3!='D'&&sideChoice_3x3!='F'&&sideChoice_3x3!='B'&&sideChoice_3x3!='R'&&sideChoice_3x3!='L'&&sideChoice_3x3!='M'&&sideChoice_3x3!='E'&&sideChoice_3x3!='S'&&sideChoice_3x3!='X'&&sideChoice_3x3!='Y'&&sideChoice_3x3!='Z'){
             puts("Sorry, that is unrecognized, please try again.");
-            printf("Which side would you like to rotate? (U/D/F/B/R/L)  ");
+            printf("Which side would you like to rotate? (U/D/F/B/R/L/M/E/S/X/Y/Z)  ");
             scanf(" %c", &sideChoice_3x3);
         }
         printf("How many 90 degree rotations would you like to rotate by? ");
@@ -124,14 +125,14 @@ void rotation_3x3(void){
         }
     }
     else if(solveChoice_3x3=='M'){
-        printf("Which side would you like to rotate? (U/D/F/B/R/L)  ");
+        printf("Which side would you like to rotate? (U/D/F/B/R/L/M/E/S/X/Y/Z)  ");
         scanf(" %c", &sideChoice_3x3);
-        while(sideChoice_3x3!='U'&&sideChoice_3x3!='D'&&sideChoice_3x3!='F'&&sideChoice_3x3!='B'&&sideChoice_3x3!='R'&&sideChoice_3x3!='L'&&sideChoice_3x3!='E'){
+        while(sideChoice_3x3!='U'&&sideChoice_3x3!='D'&&sideChoice_3x3!='F'&&sideChoice_3x3!='B'&&sideChoice_3x3!='R'&&sideChoice_3x3!='L'&&sideChoice_3x3!='M'&&sideChoice_3x3!='E'&&sideChoice_3x3!='S'&&sideChoice_3x3!='X'&&sideChoice_3x3!='Y'&&sideChoice_3x3!='Z'&&sideChoice_3x3!='N'){
             puts("Sorry, that is unrecognized, please try again.");
-            printf("Which side would you like to rotate? (U/D/F/B/R/L)  ");
+            printf("Which side would you like to rotate? (U/D/F/B/R/L/M/E/S/X/Y/Z)  ");
             scanf(" %c", &sideChoice_3x3);
         }
-        if(sideChoice_3x3!='E'){
+        if(sideChoice_3x3!='N'){
             printf("How many 90 degree rotations would you like to rotate by? ");
             scanf("%d", &dirAmt_3x3);
             for(int i=0;i<dirAmt_3x3;i++){
@@ -303,6 +304,94 @@ void rotationsingle_3x3(char *side_3x3){
         blue_3x3[2][2]=red_3x3[2][2];
         red_3x3[2][2]=storage_3x3;
     }
+    else if(*side_3x3=='M'){
+        storage_3x3=green_3x3[2][1];
+        green_3x3[2][1]=white_3x3[2][1];
+        white_3x3[2][1]=blue_3x3[0][1];
+        blue_3x3[0][1]=yellow_3x3[2][1];
+        yellow_3x3[2][1]=storage_3x3;
+        storage_3x3=green_3x3[1][1];
+        green_3x3[1][1]=white_3x3[1][1];
+        white_3x3[1][1]=blue_3x3[1][1];
+        blue_3x3[1][1]=yellow_3x3[1][1];
+        yellow_3x3[1][1]=storage_3x3;
+        storage_3x3=green_3x3[0][1];
+        green_3x3[0][1]=white_3x3[0][1];
+        white_3x3[0][1]=blue_3x3[2][1];
+        blue_3x3[2][1]=yellow_3x3[0][1];
+        yellow_3x3[0][1]=storage_3x3;
+        for(int a=0;a<3;a++){
+            for(int b=0;b<3;b++){
+                storage_3x3=greenCheck_3x3[a][b];
+                greenCheck_3x3[a][b]=whiteCheck_3x3[a][b];
+                whiteCheck_3x3[a][b]=blueCheck_3x3[2-a][2-b];
+                blueCheck_3x3[2-a][2-b]=yellowCheck_3x3[a][b];
+                yellowCheck_3x3[a][b]=storage_3x3;
+            }
+        }
+    }
+    else if(*side_3x3=='E'){
+        for(int a=0;a<3;a++){
+            storage_3x3=green_3x3[1][a];
+            green_3x3[1][a]=orange_3x3[1][a];
+            orange_3x3[1][a]=blue_3x3[1][a];
+            blue_3x3[1][a]=red_3x3[1][a];
+            red_3x3[1][a]=storage_3x3;
+            for(int b=0;b<3;b++){
+                storage_3x3=greenCheck_3x3[a][b];
+                greenCheck_3x3[a][b]=orangeCheck_3x3[a][b];
+                orangeCheck_3x3[a][b]=blueCheck_3x3[a][b];
+                blueCheck_3x3[a][b]=redCheck_3x3[a][b];
+                redCheck_3x3[a][b]=storage_3x3;
+            }
+        }
+    }
+    else if(*side_3x3=='S'){
+        for(int a=0;a<3;a++){
+            storage_3x3=white_3x3[1][a];
+            white_3x3[1][a]=orange_3x3[2-a][1];
+            orange_3x3[2-a][1]=yellow_3x3[1][2-a];
+            yellow_3x3[1][2-a]=red_3x3[a][1];
+            red_3x3[a][1]=storage_3x3;
+            for(int b=0;b<3;b++){
+                storage_3x3=whiteCheck_3x3[a][b];
+                whiteCheck_3x3[a][b]=orangeCheck_3x3[2-a][b];
+                orangeCheck_3x3[2-a][b]=yellowCheck_3x3[2-a][2-b];
+                yellowCheck_3x3[2-a][2-b]=redCheck_3x3[a][2-b];
+                redCheck_3x3[a][2-b]=storage_3x3;
+            }
+        }
+    }
+    else if(*side_3x3=='X'){
+        axialrotate='R';
+        rotationsingle_3x3(&axialrotate);
+        rotationsingle_3x3(&axialrotate);
+        rotationsingle_3x3(&axialrotate);
+        axialrotate='L';
+        rotationsingle_3x3(&axialrotate);
+        axialrotate='M';
+        rotationsingle_3x3(&axialrotate);
+    }
+    else if(*side_3x3=='Y'){
+        axialrotate='U';
+        rotationsingle_3x3(&axialrotate);
+        rotationsingle_3x3(&axialrotate);
+        rotationsingle_3x3(&axialrotate);
+        axialrotate='E';
+        rotationsingle_3x3(&axialrotate);
+        axialrotate='D';
+        rotationsingle_3x3(&axialrotate);
+    }
+    else if(*side_3x3=='Z'){
+        axialrotate='F';
+        rotationsingle_3x3(&axialrotate);
+        axialrotate='S';
+        rotationsingle_3x3(&axialrotate);
+        axialrotate='B';
+        rotationsingle_3x3(&axialrotate);
+        rotationsingle_3x3(&axialrotate);
+        rotationsingle_3x3(&axialrotate);
+    }
 }
 bool sideCheck_3x3(char face1_3x3[3][3], char face2_3x3[3][3]){
     for(int i=0;i<3;i++){
@@ -360,37 +449,37 @@ void scramble_3x3(void){
         rngdir_3x3=(rand()%3)+1;
         if(rngside_3x3==0){
             sideChoice_3x3='U';
-            for(int j=1;j<(rngdir_3x3);j++){
+            for(int j=0;j<(rngdir_3x3);j++){
                 rotationsingle_3x3(&sideChoice_3x3);
             }
         }
         else if(rngside_3x3==1){
             sideChoice_3x3='R';
-            for(int j=1;j<(rngdir_3x3);j++){
+            for(int j=0;j<(rngdir_3x3);j++){
                 rotationsingle_3x3(&sideChoice_3x3);
             }
         }
         else if(rngside_3x3==2){
             sideChoice_3x3='B';
-            for(int j=1;j<(rngdir_3x3);j++){
+            for(int j=0;j<(rngdir_3x3);j++){
                 rotationsingle_3x3(&sideChoice_3x3);
             }
         }
         else if(rngside_3x3==3){
             sideChoice_3x3='L';
-            for(int j=1;j<(rngdir_3x3);j++){
+            for(int j=0;j<(rngdir_3x3);j++){
                 rotationsingle_3x3(&sideChoice_3x3);
             }
         }
         else if(rngside_3x3==4){
             sideChoice_3x3='D';
-            for(int j=1;j<(rngdir_3x3);j++){
+            for(int j=0;j<(rngdir_3x3);j++){
                 rotationsingle_3x3(&sideChoice_3x3);
             }
         }
         else if(rngside_3x3==5){
             sideChoice_3x3='F';
-            for(int j=1;j<(rngdir_3x3);j++){
+            for(int j=0;j<(rngdir_3x3);j++){
                 rotationsingle_3x3(&sideChoice_3x3);
             }
         }
