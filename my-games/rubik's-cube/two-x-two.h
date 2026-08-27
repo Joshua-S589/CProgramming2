@@ -17,6 +17,7 @@ void rotation_2x2(void);
 void rotationsingle_2x2(char *side_2x2);
 void scramble_2x2(void);
 bool sideCheck_2x2(char face1_2x2[2][2]);
+char axialrotate;
 int dirAmt_2x2;
 int endTime_2x2;
 int moveCnt_2x2=0;
@@ -104,11 +105,11 @@ void printRules_2x2(void){
 }
 void rotation_2x2(void){
     if(solveChoice_2x2=='S'){
-        printf("Which side would you like to rotate? (U/D/F/B/R/L)  ");
+        printf("Which side would you like to rotate? (U/D/F/B/R/L/X/Y/Z)  ");
         scanf(" %c", &sideChoice_2x2);
-        while(sideChoice_2x2!='U'&&sideChoice_2x2!='D'&&sideChoice_2x2!='F'&&sideChoice_2x2!='B'&&sideChoice_2x2!='R'&&sideChoice_2x2!='L'){
+        while(sideChoice_2x2!='U'&&sideChoice_2x2!='D'&&sideChoice_2x2!='F'&&sideChoice_2x2!='B'&&sideChoice_2x2!='R'&&sideChoice_2x2!='L'&&sideChoice_2x2!='X'&&sideChoice_2x2!='Y'&&sideChoice_2x2!='Z'){
             puts("Sorry, that is unrecognized, please try again.");
-            printf("Which side would you like to rotate? (U/D/F/B/R/L)  ");
+            printf("Which side would you like to rotate? (U/D/F/B/R/L/X/Y/Z)  ");
             scanf(" %c", &sideChoice_2x2);
         }
         printf("How many 90 degree rotations would you like to rotate by? ");
@@ -118,11 +119,11 @@ void rotation_2x2(void){
         }
     }
     else if(solveChoice_2x2=='M'){
-        printf("Which side would you like to rotate? (U/D/F/B/R/L)  ");
+        printf("Which side would you like to rotate? (U/D/F/B/R/L/X/Y/Z)  ");
         scanf(" %c", &sideChoice_2x2);
-        while(sideChoice_2x2!='U'&&sideChoice_2x2!='D'&&sideChoice_2x2!='F'&&sideChoice_2x2!='B'&&sideChoice_2x2!='R'&&sideChoice_2x2!='L'&&sideChoice_2x2!='E'){
+        while(sideChoice_2x2!='U'&&sideChoice_2x2!='D'&&sideChoice_2x2!='F'&&sideChoice_2x2!='B'&&sideChoice_2x2!='R'&&sideChoice_2x2!='L'&&sideChoice_2x2!='E'&&sideChoice_2x2!='X'&&sideChoice_2x2!='Y'&&sideChoice_2x2!='Z'){
             puts("Sorry, that is unrecognized, please try again.");
-            printf("Which side would you like to rotate? (U/D/F/B/R/L)  ");
+            printf("Which side would you like to rotate? (U/D/F/B/R/L/X/Y/Z)  ");
             scanf(" %c", &sideChoice_2x2);
         }
         if(sideChoice_2x2!='E'){
@@ -236,6 +237,30 @@ void rotationsingle_2x2(char *side_2x2){
         red_2x2[1][1]=yellow_2x2[1][0];
         yellow_2x2[1][0]=orange_2x2[0][0];
         orange_2x2[0][0]=storage_2x2;
+    }
+    else if(*side_2x2=='X'){
+        axialrotate='L';
+        rotationsingle_2x2(&axialrotate);
+        axialrotate='R';
+        rotationsingle_2x2(&axialrotate);
+        rotationsingle_2x2(&axialrotate);
+        rotationsingle_2x2(&axialrotate);
+    }
+    else if(*side_2x2=='Y'){
+        axialrotate='D';
+        rotationsingle_2x2(&axialrotate);
+        axialrotate='U';
+        rotationsingle_2x2(&axialrotate);
+        rotationsingle_2x2(&axialrotate);
+        rotationsingle_2x2(&axialrotate);
+    }
+    else if(*side_2x2=='Z'){
+        axialrotate='F';
+        rotationsingle_2x2(&axialrotate);
+        axialrotate='B';
+        rotationsingle_2x2(&axialrotate);
+        rotationsingle_2x2(&axialrotate);
+        rotationsingle_2x2(&axialrotate);
     }
 }
 bool sideCheck_2x2(char face1_2x2[2][2]){

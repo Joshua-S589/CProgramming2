@@ -14,10 +14,12 @@ char green_4x4[4][4]={{'G','G','G','G'},{'G','G','G','G'},{'G','G','G','G'},{'G'
 void printCube_4x4(void);
 void printRules_4x4(void);
 void rotation_4x4(void);
+void rotationAxis_4x4(char *axis);
 void rotationFace_4x4(char face[4][4]);
 void rotationsingle_4x4(char *side_4x4, int *layers_deep);
 void scramble_4x4(void);
 bool sideCheck_4x4(char face1_4x4[4][4]);
+char axialrotate;
 int dirAmt_4x4;
 int endTime_4x4;
 int layerChoice_4x4;
@@ -107,38 +109,26 @@ void printRules_4x4(void){
 }
 void rotation_4x4(void){
     if(solveChoice_4x4=='S'){
-        printf("Which side would you like to rotate? (U/D/F/B/R/L)  ");
+        printf("Which side would you like to rotate? (U/D/F/B/R/L/X/Y/Z)  ");
         scanf(" %c", &sideChoice_4x4);
-        while(sideChoice_4x4!='U'&&sideChoice_4x4!='D'&&sideChoice_4x4!='F'&&sideChoice_4x4!='B'&&sideChoice_4x4!='R'&&sideChoice_4x4!='L'){
+        while(sideChoice_4x4!='U'&&sideChoice_4x4!='D'&&sideChoice_4x4!='F'&&sideChoice_4x4!='B'&&sideChoice_4x4!='R'&&sideChoice_4x4!='L'&&sideChoice_4x4!='X'&&sideChoice_4x4!='Y'&&sideChoice_4x4!='Z'){
             puts("Sorry, that is unrecognized, please try again.");
-            printf("Which side would you like to rotate? (U/D/F/B/R/L)  ");
+            printf("Which side would you like to rotate? (U/D/F/B/R/L/X/Y/Z)  ");
             scanf(" %c", &sideChoice_4x4);
         }
-        printf("Which layer would you like to rotate? (0 for outer layer, 1 for inner layer) ");
-        scanf(" %d", &layerChoice_4x4);
-        while(layerChoice_4x4!='0'&&layerChoice_4x4!='1'){
-            puts("Sorry, that is unrecognized, please try again.");
+        if(sideChoice_4x4=='X'||sideChoice_4x4=='Y'||sideChoice_4x4=='Z'){
+            printf("How many 90 degree rotations would you like to rotate by? ");
+            scanf("%d", &dirAmt_4x4);
+            printf("How many 90 degree rotations would you like to rotate by? ");
+            scanf("%d", &dirAmt_4x4);
+            for(int i=0;i<dirAmt_4x4;i++){
+                rotationAxis_4x4(&sideChoice_4x4);
+            }
+        }
+        else{
             printf("Which layer would you like to rotate? (0 for outer layer, 1 for inner layer) ");
             scanf(" %d", &layerChoice_4x4);
-        }
-        printf("How many 90 degree rotations would you like to rotate by? ");
-        scanf("%d", &dirAmt_4x4);
-        for(int i=0;i<dirAmt_4x4;i++){
-            rotationsingle_4x4(&sideChoice_4x4, &layerChoice_4x4);
-        }
-    }
-    else if(solveChoice_4x4=='M'){
-        printf("Which side would you like to rotate? (U/D/F/B/R/L)  ");
-        scanf(" %c", &sideChoice_4x4);
-        while(sideChoice_4x4!='U'&&sideChoice_4x4!='D'&&sideChoice_4x4!='F'&&sideChoice_4x4!='B'&&sideChoice_4x4!='R'&&sideChoice_4x4!='L'&&sideChoice_4x4!='E'){
-            puts("Sorry, that is unrecognized, please try again.");
-            printf("Which side would you like to rotate? (U/D/F/B/R/L)  ");
-            scanf(" %c", &sideChoice_4x4);
-        }
-        if(sideChoice_4x4!='E'){
-            printf("Which layer would you like to rotate? (0 for outer layer, 1 for inner layer) ");
-            scanf(" %d", &layerChoice_4x4);
-            while(layerChoice_4x4!=0&&layerChoice_4x4!=1){
+            while(layerChoice_4x4!='0'&&layerChoice_4x4!='1'){
                 puts("Sorry, that is unrecognized, please try again.");
                 printf("Which layer would you like to rotate? (0 for outer layer, 1 for inner layer) ");
                 scanf(" %d", &layerChoice_4x4);
@@ -148,6 +138,76 @@ void rotation_4x4(void){
             for(int i=0;i<dirAmt_4x4;i++){
                 rotationsingle_4x4(&sideChoice_4x4, &layerChoice_4x4);
             }
+        }
+    }
+    else if(solveChoice_4x4=='M'){
+        printf("Which side would you like to rotate? (U/D/F/B/R/L/X/Y/Z)  ");
+        scanf(" %c", &sideChoice_4x4);
+        while(sideChoice_4x4!='U'&&sideChoice_4x4!='D'&&sideChoice_4x4!='F'&&sideChoice_4x4!='B'&&sideChoice_4x4!='R'&&sideChoice_4x4!='L'&&sideChoice_4x4!='X'&&sideChoice_4x4!='Y'&&sideChoice_4x4!='Z'&&sideChoice_4x4!='E'){
+            puts("Sorry, that is unrecognized, please try again.");
+            printf("Which side would you like to rotate? (U/D/F/B/R/L/X/Y/Z)  ");
+            scanf(" %c", &sideChoice_4x4);
+        }
+        if(sideChoice_4x4=='X'||sideChoice_4x4=='Y'||sideChoice_4x4=='Z'){
+            printf("How many 90 degree rotations would you like to rotate by? ");
+            scanf("%d", &dirAmt_4x4);
+            for(int i=0;i<dirAmt_4x4;i++){
+                rotationAxis_4x4(&sideChoice_4x4);
+            }
+        }
+        else{
+            if(sideChoice_4x4!='E'){
+                printf("Which layer would you like to rotate? (0 for outer layer, 1 for inner layer) ");
+                scanf(" %d", &layerChoice_4x4);
+                while(layerChoice_4x4!=0&&layerChoice_4x4!=1){
+                    puts("Sorry, that is unrecognized, please try again.");
+                    printf("Which layer would you like to rotate? (0 for outer layer, 1 for inner layer) ");
+                    scanf(" %d", &layerChoice_4x4);
+                }
+                printf("How many 90 degree rotations would you like to rotate by? ");
+                scanf("%d", &dirAmt_4x4);
+                for(int i=0;i<dirAmt_4x4;i++){
+                    rotationsingle_4x4(&sideChoice_4x4, &layerChoice_4x4);
+                }
+            }
+        }
+    }
+}
+void rotationAxis_4x4(char *axis){
+    if(*axis=='X'){
+        axialrotate='L';
+        for(int i=0;i<2;i++){
+            rotationsingle_4x4(&axialrotate, &i);
+        }
+        axialrotate='R';
+        for(int i=0;i<2;i++){
+            rotationsingle_4x4(&axialrotate, &i);
+            rotationsingle_4x4(&axialrotate, &i);
+            rotationsingle_4x4(&axialrotate, &i);
+        }
+    }
+    if(*axis=='Y'){
+        axialrotate='D';
+        for(int i=0;i<2;i++){
+            rotationsingle_4x4(&axialrotate, &i);
+        }
+        axialrotate='U';
+        for(int i=0;i<2;i++){
+            rotationsingle_4x4(&axialrotate, &i);
+            rotationsingle_4x4(&axialrotate, &i);
+            rotationsingle_4x4(&axialrotate, &i);
+        }
+    }
+    if(*axis=='Z'){
+        axialrotate='F';
+        for(int i=0;i<2;i++){
+            rotationsingle_4x4(&axialrotate, &i);
+        }
+        axialrotate='B';
+        for(int i=0;i<2;i++){
+            rotationsingle_4x4(&axialrotate, &i);
+            rotationsingle_4x4(&axialrotate, &i);
+            rotationsingle_4x4(&axialrotate, &i);
         }
     }
 }
