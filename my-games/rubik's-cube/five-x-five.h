@@ -20,6 +20,7 @@ char greenCheck_5x5[5][5]={{'G','G','G','G','G'},{'G','G','G','G','G'},{'G','G',
 void printCube_5x5(void);
 void printRules_5x5(void);
 void rotation_5x5(void);
+void rotationAxis_5x5(char *axis);
 void rotationFace_5x5(char face[5][5]);
 void rotationsingle_5x5(char *side_5x5, int *layers_deep);
 void scramble_5x5(void);
@@ -78,12 +79,12 @@ void fiveXfive(void){
         }
     }
     else if (solveChoice_5x5=='M'){
-        printf("When you wish to finish, type 'E'\n");
+        printf("When you wish to finish, type 'N'\n");
         printCube_5x5();
         printf("\n");
         while(true){
             rotation_5x5();
-            if(sideChoice_5x5=='E'){
+            if(sideChoice_5x5=='N'){
                 break;
             }
             printf("\n");
@@ -115,33 +116,61 @@ void rotation_5x5(void){
     if(solveChoice_5x5=='S'){
         printf("Which side would you like to rotate? (U/D/F/B/R/L)  ");
         scanf(" %c", &sideChoice_5x5);
-        while(sideChoice_5x5!='U'&&sideChoice_5x5!='D'&&sideChoice_5x5!='F'&&sideChoice_5x5!='B'&&sideChoice_5x5!='R'&&sideChoice_5x5!='L'){
+        while(sideChoice_5x5!='U'&&sideChoice_5x5!='D'&&sideChoice_5x5!='F'&&sideChoice_5x5!='B'&&sideChoice_5x5!='R'&&sideChoice_5x5!='L'&&sideChoice_5x5!='M'&&sideChoice_5x5!='E'&&sideChoice_5x5!='S'&&sideChoice_5x5!='X'&&sideChoice_5x5!='Y'&&sideChoice_5x5!='Z'){
             puts("Sorry, that is unrecognized, please try again.");
             printf("Which side would you like to rotate? (U/D/F/B/R/L)  ");
             scanf(" %c", &sideChoice_5x5);
         }
-        printf("Which layer would you like to rotate? (0 for outer layer, 1 for inner layer) ");
-        scanf(" %d", &layerChoice_5x5);
-        while(layerChoice_5x5!='0'&&layerChoice_5x5!='1'){
-            puts("Sorry, that is unrecognized, please try again.");
+        if(sideChoice_5x5=='X'||sideChoice_5x5=='Y'||sideChoice_5x5=='Z'){
+            printf("How many 90 degree rotations would you like to rotate by? ");
+            scanf("%d", &dirAmt_5x5);
+            printf("How many 90 degree rotations would you like to rotate by? ");
+            scanf("%d", &dirAmt_5x5);
+            for(int i=0;i<dirAmt_5x5;i++){
+                rotationAxis_4x4(&sideChoice_5x5);
+            }
+        }
+        else if(sideChoice_5x5=='M'||sideChoice_5x5=='E'||sideChoice_5x5=='S'){
+            layerChoice_5x5=0;
+            rotationsingle_5x5(&sideChoice_5x5, &layerChoice_5x5);
+        }
+        else{
             printf("Which layer would you like to rotate? (0 for outer layer, 1 for inner layer) ");
             scanf(" %d", &layerChoice_5x5);
-        }
-        printf("How many 90 degree rotations would you like to rotate by? ");
-        scanf("%d", &dirAmt_5x5);
-        for(int i=0;i<dirAmt_5x5;i++){
-            rotationsingle_5x5(&sideChoice_5x5, &layerChoice_5x5);
+            while(layerChoice_5x5!='0'&&layerChoice_5x5!='1'){
+                puts("Sorry, that is unrecognized, please try again.");
+                printf("Which layer would you like to rotate? (0 for outer layer, 1 for inner layer) ");
+                scanf(" %d", &layerChoice_5x5);
+            }
+            printf("How many 90 degree rotations would you like to rotate by? ");
+            scanf("%d", &dirAmt_5x5);
+            for(int i=0;i<dirAmt_5x5;i++){
+                rotationsingle_5x5(&sideChoice_5x5, &layerChoice_5x5);
+            }
         }
     }
     else if(solveChoice_5x5=='M'){
         printf("Which side would you like to rotate? (U/D/F/B/R/L)  ");
         scanf(" %c", &sideChoice_5x5);
-        while(sideChoice_5x5!='U'&&sideChoice_5x5!='D'&&sideChoice_5x5!='F'&&sideChoice_5x5!='B'&&sideChoice_5x5!='R'&&sideChoice_5x5!='L'&&sideChoice_5x5!='E'){
+        while(sideChoice_5x5!='U'&&sideChoice_5x5!='D'&&sideChoice_5x5!='F'&&sideChoice_5x5!='B'&&sideChoice_5x5!='R'&&sideChoice_5x5!='L'&&sideChoice_5x5!='M'&&sideChoice_5x5!='E'&&sideChoice_5x5!='S'&&sideChoice_5x5!='X'&&sideChoice_5x5!='Y'&&sideChoice_5x5!='Z'&&sideChoice_5x5!='E'){
             puts("Sorry, that is unrecognized, please try again.");
             printf("Which side would you like to rotate? (U/D/F/B/R/L)  ");
             scanf(" %c", &sideChoice_5x5);
         }
-        if(sideChoice_5x5!='E'){
+        if(sideChoice_5x5=='X'||sideChoice_5x5=='Y'||sideChoice_5x5=='Z'){
+            printf("How many 90 degree rotations would you like to rotate by? ");
+            scanf("%d", &dirAmt_5x5);
+            printf("How many 90 degree rotations would you like to rotate by? ");
+            scanf("%d", &dirAmt_5x5);
+            for(int i=0;i<dirAmt_5x5;i++){
+                rotationAxis_4x4(&sideChoice_5x5);
+            }
+        }
+        else if(sideChoice_5x5=='M'||sideChoice_5x5=='E'||sideChoice_5x5=='S'){
+            layerChoice_5x5=0;
+            rotationsingle_5x5(&sideChoice_5x5, &layerChoice_5x5);
+        }
+        else if(sideChoice_5x5!='N'){
             printf("Which layer would you like to rotate? (0 for outer layer, 1 for inner layer) ");
             scanf(" %d", &layerChoice_5x5);
             while(layerChoice_5x5!=0&&layerChoice_5x5!=1){
@@ -156,6 +185,9 @@ void rotation_5x5(void){
             }
         }
     }
+}
+void rotationAxis_5x5(char *axis){
+
 }
 void rotationsingle_5x5(char *side_5x5, int *layers_deep){
     if(*side_5x5=='F'){
@@ -228,6 +260,11 @@ void rotationsingle_5x5(char *side_5x5, int *layers_deep){
             orange_5x5[4-*layers_deep][i]=blue_5x5[4-*layers_deep][i];
             blue_5x5[4-*layers_deep][i]=red_5x5[4-*layers_deep][i];
             red_5x5[4-*layers_deep][i]=storage_5x5;
+        }
+    }
+    if(*side_5x5=='M'){
+        for(int i=0;i<5;i++){
+            storage_5x5=green_5x5
         }
     }
 }
